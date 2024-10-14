@@ -6,6 +6,8 @@ const cors = require('cors');
 
 app.use(cors()); // Enable CORS for all routes
 
+const Router = express.Router();
+
 // Sample API route
 app.get('/api/cars', (req, res) => {
   res.send({ message: 'Lets get ya rollin on some new Wheels!' });
