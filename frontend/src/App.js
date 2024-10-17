@@ -1,66 +1,68 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
-import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
-import React, { useEffect, useState } from "react";
+import {
+  Navbar,
+  Nav,
+  Container,
+  Row,
+  Col,
+  Spinner,
+  Alert,
+} from "react-bootstrap";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import Home from "./views/home";
+import UsedCars from "./views/UsedCars";
+import SellCar from "./views/SellCar";
+import axios from "axios";
 
 function App() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true); // State to manage loading status
-  const [error, setError] = useState(null); // State to manage error
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:8000/api")
-      .then((response) => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/cars");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        return response.json();
-      })
-      .then((data) => {
-        setData(data.message);
-        setLoading(false);
-      })
-      .catch((error) => {
+        const data = await response.json();
+        setData(data.cars);
+      } catch (error) {
         setError(error.message);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
-    <>
+    <Router>
       <div className="App">
         <Navbar bg="dark" variant="dark">
-          <Navbar.Brand href="#home">StarrCars</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/">StarrCars</Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#forsale">Used Cars for Sale</Nav.Link>
-            <Nav.Link href="#sell">Sell Your Car</Nav.Link>
+            <Nav.Link as={Link} to="/">Home</Nav.Link>
+            <Nav.Link as={Link} to="/forsale">Used Cars for Sale</Nav.Link>
+            <Nav.Link as={Link} to="/sell">Sell Your Car</Nav.Link>
           </Nav>
         </Navbar>
       </div>
       <div className="App container mt-4">
-        <h1 className="text-center">Welcome to StarrCars</h1>
-
-        {loading ? (
-          //Bootstrap spinner
-          <div className="d-flex justify-content-center">
-            <div className="spinner-border" role="status">
-              <span className="sr-visually-hidden">Loading...</span>
-            </div>
-          </div>
-        ) : error ? (
-          //Bootstrap alert for Error
-          <div className="alert alert-danger" role="alert">
-            {error}
-          </div>
-        ) : (
-          //Display successfully fetched data
-          <div className="alert alert-success" role="alert">
-            {data}
-          </div>
-        )}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/forsale"
+            element={<UsedCars data={data} loading={loading} error={error} />}
+          />
+          <Route path="/sell" element={<SellCar />} />
+        </Routes>
       </div>
-    </>
+    </Router>
   );
 }
 
