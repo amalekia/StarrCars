@@ -1,6 +1,6 @@
 import React from "react";
-import { Navbar, Nav, Button, Container, Image } from "react-bootstrap";
-import { Link, NavLink } from "react-router-dom";
+import { Navbar, Nav, Container} from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function NavigationBar() {
   return (
@@ -16,8 +16,8 @@ function NavigationBar() {
         <Navbar.Brand as={Link} to="/">StarrCars</Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link as={Link} to="/">Home</Nav.Link>
-            <Nav.Link as={Link} to="/forsale">Used Cars for Sale</Nav.Link>
-            <Nav.Link as={Link} to="/sell">Sell Your Car</Nav.Link>
+            <Nav.Link as={Link} to="/carsforsale">Used Cars for Sale</Nav.Link>
+            <Nav.Link as={Link} to="/sellcar">Sell Your Car</Nav.Link>
           </Nav>
       </Container>
     </Navbar>

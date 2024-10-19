@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import { Button, Container, Card, Row } from "react-bootstrap";
 
 export default function Home() {
-
   return (
-    <Container style={{ color: "#8a6bc3" }}>
+    <Container style={{ color: "darkorange" }}>
       <header>
         <h2
           style={{
@@ -34,10 +33,10 @@ export default function Home() {
               style={{
                 width: "36rem",
                 height: "15rem",
-                background: "lightblue",
+                background: "black",
                 padding: "0.7rem",
                 textAlign: "center",
-                backgroundImage: `url("dance.png")`,
+                backgroundImage: `url("racetrack.png")`,
                 backgroundSize: "27rem",
                 marginTop: "1.5rem",
                 marginRight: "2rem",
@@ -45,14 +44,14 @@ export default function Home() {
               }}
             >
               <Card.Body>
-                <Card.Title style={{ color: "white" }}>
-                  Let your imaginations flow onto the DJ board!
+                <Card.Title style={{ color: "black" }}>
+                  Lets get you rollin on some new wheels!
                 </Card.Title>
-                <Link to="/playlists/create">
+                <Link to="/carsforsale">
                   <Button
-                    style={{ backgroundColor: "#5f6acf", color: "white" }}
+                    style={{ backgroundColor: "darkorange", color: "black" }}
                   >
-                    Create A New Playlist
+                    Search for Used Cars
                   </Button>
                 </Link>
               </Card.Body>
@@ -61,24 +60,23 @@ export default function Home() {
               style={{
                 width: "36rem",
                 height: "15rem",
-                background: "lightblue",
                 padding: "0.7rem",
                 textAlign: "center",
-                backgroundImage: `url("vinyl.png")`,
+                backgroundImage: `url("raceflag.png")`,
                 backgroundSize: "37rem",
                 marginTop: "1.5rem",
                 border: "none",
               }}
             >
               <Card.Body>
-                <Card.Title style={{ color: "white" }}>
-                  View your playlists
+                <Card.Title style={{ color: "black" }}>
+                  Let us help sell your car with our expertise!
                 </Card.Title>
-                <Link to="/playlists">
+                <Link to="/sellcar">
                   <Button
-                    style={{ backgroundColor: "#5f6acf", color: "white" }}
+                    style={{ backgroundColor: "darkorange", color: "black" }}
                   >
-                    My Playlists
+                    Sell Your Car
                   </Button>
                 </Link>
               </Card.Body>
