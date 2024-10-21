@@ -3,7 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import "dotenv/config";
 import cookieParser from "cookie-parser";
-import carsRouter from "./routes/used-cars";
+import carsRouter from "./routes/used-cars.js";
 
 const app = express();
 
