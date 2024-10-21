@@ -3,9 +3,9 @@ import cors from "cors";
 import mongoose from "mongoose";
 import "dotenv/config";
 import cookieParser from "cookie-parser";
+import carsRouter from "./routes/used-cars";
 
 const app = express();
-const port = process.env.PORT || 8000;
 
 app.use(
   cors({
@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-// app.use("/user", userRouter);
+app.use("/car", carsRouter);
 // app.use("/song", songRouter);
 // app.use("/playlist", playlistRouter);
 // app.use("/oauth", oauthRouter);

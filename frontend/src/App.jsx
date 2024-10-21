@@ -5,6 +5,7 @@ import Home from "./views/home";
 import Footer from "./components/footer";
 import NavigationBar from "./components/navigation-bar";
 import CarsForSale from "./views/carsforsale";
+import SellCarPage from "./views/sellcar";
 
 function App() {
 
@@ -15,8 +16,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}/>
           <Route path="/carsforsale" element={<CarsForSale />}/>
-          {/* <Route path="/sellcar" element={<SellCarPage />}/>
-          <Route path="/about" element={<AboutPage />}/>
+          <Route path="/sellcar" element={<SellCarPage />}/>
+          {/* <Route path="/about" element={<AboutPage />}/>
           <Route path="/contact" element={<ContactPage />}/>
           <Route path="/privacy" element={<PrivacyPage />}/> */}
         </Routes>
