@@ -36,10 +36,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.use("/car", carsRouter);
-// app.use("/song", songRouter);
-// app.use("/playlist", playlistRouter);
-// app.use("/oauth", oauthRouter);
+app.use("/cars", carsRouter);
 // app.use("/export", exportRouter);
 // app.use("/import", importRouter);
 

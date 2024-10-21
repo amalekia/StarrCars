@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { Form }  from "react-bootstrap";
+import Select from "react-select";
 import "../styles/carsforsale.css";
 
 const CarsForSale = () => {
@@ -7,6 +9,25 @@ const CarsForSale = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const [locationFilter, setLocationFilter] = useState("");
+
+  const options = [
+    {value: 'bakersfield', label: 'Bakersfield'},
+    {value: 'chico', label: 'Chico'},
+    {value: 'fresno', label: 'Fresno'},
+    {value: 'los-angeles', label: 'Los Angeles'},
+    {value: 'merced', label: 'Merced'},
+    {value: 'modesto', label: 'Modesto'},
+    {value: 'monterey', label: 'Monterey'},
+    {value: 'redding', label: 'Redding'},
+    {value: 'riverside', label: 'Riverside'},
+    {value: 'sacramento', label: 'Sacramento'},
+    {value: 'san-diego', label: 'San Diego'},
+    {value: 'san-francisco', label: 'San Francisco'},
+    {value: 'san-luis-obispo', label: 'San Luis Obispo'},
+    {value: 'santa-barbara', label: 'Santa Barbara'},
+    {value: 'santa-cruz', label: 'Santa Cruz'},
+    {value: 'stockton', label: 'Stockton'},
+  ];
 
   const carsPerPage = 20;
 
@@ -62,16 +83,21 @@ const CarsForSale = () => {
 
       {/* Filter by Location */}
       <div className="filter-location">
-        <label>Filter by Location:</label>
-        <input
-          type="text"
-          value={locationFilter}
-          onChange={handleLocationChange}
-          placeholder="Enter location"
-        />
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            fetchCars(1);
+          }}
+        >
+          <Form.Group>
+            <Form.Label>Filter by Location:</Form.Label>
+            <Select
+              options={options}
+              onChange={(selectedOption) => handleLocationChange(selectedOption.value)}
+            />
+          </Form.Group>
+        </Form>
       </div>
-
-      {/* Loading Spinner */}
       {loading ? (
         <div>Loading cars...</div>
       ) : (
