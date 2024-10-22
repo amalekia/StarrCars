@@ -6,6 +6,8 @@ import Footer from "./components/footer";
 import NavigationBar from "./components/navigation-bar";
 import CarsForSale from "./views/carsforsale";
 import SellCarPage from "./views/sellcar";
+import AboutPage from "./views/about";
+import ContactPage from "./views/contact";
 
 function App() {
 
@@ -17,9 +19,8 @@ function App() {
           <Route path="/" element={<Home />}/>
           <Route path="/carsforsale" element={<CarsForSale />}/>
           <Route path="/sellcar" element={<SellCarPage />}/>
-          {/* <Route path="/about" element={<AboutPage />}/>
+          <Route path="/about" element={<AboutPage />}/>
           <Route path="/contact" element={<ContactPage />}/>
-          <Route path="/privacy" element={<PrivacyPage />}/> */}
         </Routes>
         <Footer />
       </div>

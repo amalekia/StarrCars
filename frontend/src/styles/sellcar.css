@@ -1,0 +1,77 @@
+/* Global Styles */
+body {
+    background-color: #d3d3d3; /* Light grey background */
+    color: #1a1a1a; /* Dark text */
+    font-family: Arial, sans-serif;
+}
+
+.sell-car {
+max-width: 1500px;
+margin: 0 auto;
+padding: 20px;
+background-color: #f0f0f0; /* Slightly lighter grey for form */
+border-radius: 10px;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+color: #002366; /* Daytona blue for title */
+text-align: center;
+margin-bottom: 20px;
+}
+
+p {
+text-align: center;
+color: #333333;
+}
+
+label {
+color: #002366; /* Daytona blue for form labels */
+}
+
+.form-control {
+background-color: #e0e0e0; /* Light grey input fields */
+border: 1px solid #b3b3b3;
+color: #1a1a1a;
+}
+
+.form-control:focus {
+border-color: #002366; /* Daytona blue outline on focus */
+box-shadow: none;
+}
+
+.select__control {
+background-color: #e0e0e0 !important; /* Dropdown field color */
+border-color: #b3b3b3 !important;
+color: #1a1a1a !important;
+}
+
+.select__placeholder {
+color: #666666 !important;
+}
+
+.select__single-value {
+color: #1a1a1a !important;
+}
+
+.btn-primary {
+background-color: #002366;
+border-color: #002366;
+color: #ffffff;
+}
+
+.btn-primary:hover {
+background-color: #001a4d;
+border-color: #001a4d;
+}
+
+button {
+width: 100%;
+padding: 10px;
+margin-top: 20px;
+font-size: 18px;
+font-weight: bold;
+text-transform: uppercase;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}

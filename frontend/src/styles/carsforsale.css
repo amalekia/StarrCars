@@ -1,39 +1,106 @@
+/* carsforsale.css */
+
+/* General container for the cars list */
 .cars-list {
-    padding: 20px;
-  }
-  
-  .filter-location {
-    margin-bottom: 20px;
-  }
-  
-  .cars-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-  }
-  
-  .car-item {
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-  
-  .pagination {
-    margin-top: 20px;
-    text-align: center;
-  }
-  
-  .pagination button {
-    margin: 0 5px;
-    padding: 5px 10px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .pagination button.active {
-    background-color: #0056b3;
-  }
-  
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+}
+
+.cars-list h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Filter by location */
+.filter-location {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.filter-location .form-group {
+  display: inline-block;
+  width: 100%;
+  max-width: 400px;
+}
+
+.filter-location label {
+  font-weight: bold;
+  color: #333;
+}
+
+.filter-location .css-2b097c-container {
+  width: 100%;
+}
+
+/* Loading message */
+.cars-list div.loading {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+}
+
+/* Grid layout for cars */
+.cars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Individual car item */
+.car-item {
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.car-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.car-item h2 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.car-item p {
+  font-size: 16px;
+  color: #555;
+  margin: 5px 0;
+}
+
+.car-item p.price {
+  font-weight: bold;
+  color: #1e88e5;
+}
+
+/* Pagination */
+.pagination {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.pagination button {
+  background-color: #1e88e5;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.pagination button.active {
+  background-color: #0d47a1;
+}
+
+.pagination button:hover:not(.active) {
+  background-color: #1565c0;
+}

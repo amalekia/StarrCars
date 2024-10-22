@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Container, Card, Row } from "react-bootstrap";
+import { Button, Card, Row } from "react-bootstrap";
 
 export default function Home() {
   return (
-    <Container style={{ color: "darkorange" }}>
+    <div style={{ color: "darkblue", background: "linear-gradient(to bottom, silver, blue)"}}>
       <header>
         <h2
           style={{
@@ -28,28 +28,26 @@ export default function Home() {
           Your most trusted source to buy cars!
         </div>
         <div>
-          <Row style={{ justifyContent: "center" }}>
+          <Row style={{ justifyContent: "center", gap: "2rem", borderSpacing: "10px"}}>
             <Card
               style={{
                 width: "36rem",
                 height: "15rem",
-                background: "black",
                 padding: "0.7rem",
                 textAlign: "center",
-                backgroundImage: `url("racetrack.png")`,
-                backgroundSize: "27rem",
+                backgroundImage: `url("road.png")`,
+                backgroundSize: "36rem",
                 marginTop: "1.5rem",
-                marginRight: "2rem",
                 border: "none",
               }}
             >
               <Card.Body>
-                <Card.Title style={{ color: "black" }}>
+                <Card.Title style={{ color: "lightgrey" }}>
                   Lets get you rollin on some new wheels!
                 </Card.Title>
                 <Link to="/carsforsale">
                   <Button
-                    style={{ backgroundColor: "darkorange", color: "black" }}
+                    style={{ backgroundColor: "darkblue", color: "lightgrey" }}
                   >
                     Search for Used Cars
                   </Button>
@@ -63,18 +61,18 @@ export default function Home() {
                 padding: "0.7rem",
                 textAlign: "center",
                 backgroundImage: `url("raceflag.png")`,
-                backgroundSize: "37rem",
+                backgroundSize: "36rem",
                 marginTop: "1.5rem",
                 border: "none",
               }}
             >
               <Card.Body>
-                <Card.Title style={{ color: "black" }}>
+                <Card.Title style={{ color: "lightgrey" }}>
                   Let us help sell your car with our expertise!
                 </Card.Title>
                 <Link to="/sellcar">
                   <Button
-                    style={{ backgroundColor: "darkorange", color: "black" }}
+                    style={{ backgroundColor: "darkblue", color: "lightgrey" }}
                   >
                     Sell Your Car
                   </Button>
@@ -84,6 +82,6 @@ export default function Home() {
           </Row>
         </div>
       </header>
-    </Container>
+    </div>
   );
 }

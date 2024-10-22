@@ -1,6 +1,7 @@
 import React from "react";
 import Select from "react-select";
 import { Form } from "react-bootstrap";
+import "../styles/sellcar.css";
 
 const SellCarPage = () => {
   const options = [
@@ -31,7 +32,8 @@ const SellCarPage = () => {
       year: form.year.value,
       price: form.price.value,
       location: form.location.value,
-      contact: form.contact.value,
+      contactCell: form.contactCell.value,
+      contactEmail: form.contactEmail.value,
     };
 
     fetch(`${process.env.REACT_APP_SERVER_URL}/sellcar`, {
@@ -75,9 +77,13 @@ const SellCarPage = () => {
           <Form.Label>Location</Form.Label>
           <Select options={options} name="location" />
         </Form.Group>
-        <Form.Group controlId="contact">
-          <Form.Label>Contact</Form.Label>
-          <Form.Control type="text" name="contact" />
+        <Form.Group controlId="contactEmail">
+          <Form.Label>Contact Email</Form.Label>
+          <Form.Control type="text" name="contactEmail" />
+        </Form.Group>
+        <Form.Group controlId="contactCell">
+          <Form.Label>Contact Cell</Form.Label>
+          <Form.Control type="text" name="contactCell" />
         </Form.Group>
         <button type="submit" className="btn btn-primary">
           Submit

@@ -1,5 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
     return (
@@ -10,13 +11,10 @@ export default function Footer() {
                 </p>
                 <ul className="list-inline">
                     <li className="list-inline-item">
-                        <a href="/about" className="text-white">About Us</a>
+                        <Link to="/about" style={{color: "lightgrey"}}>About Us</Link>
                     </li>
                     <li className="list-inline-item">
-                        <a href="/contact" className="text-white">Contact</a>
-                    </li>
-                    <li className="list-inline-item">
-                        <a href="/privacy" className="text-white">Privacy Policy</a>
+                        <Link to="/contact" style={{color: "lightgrey"}}>Contact</Link>
                     </li>
                 </ul>
             </div>
