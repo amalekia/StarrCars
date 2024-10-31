@@ -63,7 +63,10 @@ const SellCarPage = () => {
     <div className="sell-car">
       <h1>Sell Your Car</h1>
       <p>Fill out the form below to sell your car!</p>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={(event) => {
+        handleSubmit(event);
+        event.target.reset();
+      }}>
         <Form.Group controlId="make">
           <Form.Label>Make</Form.Label>
           <Form.Control type="text" name="make" />
