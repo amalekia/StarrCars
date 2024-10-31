@@ -26,24 +26,31 @@ const SellCarPage = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
+    const formData = new FormData(form);
     const data = {
-      make: form.make.value,
-      model: form.model.value,
-      year: form.year.value,
-      price: form.price.value,
-      location: form.location.value,
-      contactCell: form.contactCell.value,
-      contactEmail: form.contactEmail.value,
+      make: formData.get("make"),
+      model: formData.get("model"),
+      year: formData.get("year"),
+      price: formData.get("price"),
+      mileage: formData.get("mileage"),
+      location: formData.get("location"),
+      contactCell: formData.get("contactCell"),
+      contactEmail: formData.get("contactEmail"),
     };
 
-    fetch(`${process.env.REACT_APP_SERVER_URL}/sellcar`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/cars/sellcar`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        response.json();
+      })
       .then((data) => {
         console.log("Success:", data);
       })
@@ -76,6 +83,10 @@ const SellCarPage = () => {
         <Form.Group controlId="location">
           <Form.Label>Location</Form.Label>
           <Select options={options} name="location" />
+        </Form.Group>
+        <Form.Group controlId="price">
+          <Form.Label>Mileage</Form.Label>
+          <Form.Control type="number" name="mileage" />
         </Form.Group>
         <Form.Group controlId="contactEmail">
           <Form.Label>Contact Email</Form.Label>

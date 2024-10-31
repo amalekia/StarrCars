@@ -5,17 +5,27 @@ export const getCars = async () => {
   return cars;
 };
 
-export const addCar = async (make, model, year, price, color, mileage) => {
-  const car = new Car({
-    make,
-    model,
-    year,
-    price,
-    color,
-    mileage,
-  });
-  newCar = await car.save();
-  return newCar;
+export const addCar = async (make, model, year, price, mileage, location, contactCell, contactEmail) => {
+  try {
+    const newCar = new Car({
+      make,
+      model,
+      year,
+      price,
+      mileage,
+      location,
+      contactCell,
+      contactEmail,
+    });
+
+    // Save the new car to the database
+    return await newCar.save();
+  } catch (error) {
+    throw {
+      message: error.message,
+      status: 400, // Or another appropriate status code
+    };
+  }
 };
 
 export const getCarsByLocation = async (location) => {

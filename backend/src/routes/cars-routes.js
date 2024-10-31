@@ -32,13 +32,16 @@ router.post("/sellcar", async (req, res) => {
     req.body.model,
     req.body.year,
     req.body.price,
-    req.body.color,
-    req.body.mileage
+    req.body.mileage,
+    req.body.location,
+    req.body.contactCell,
+    req.body.contactEmail
   )
     .then((newCar) => res.status(201).json(newCar))
-    .catch((error) =>
-      res.status(error.status).json({ message: error.message })
-    );
+    .catch((error) => {
+      const statusCode = error.status || 500;
+      res.status(statusCode).json({ message: error.message || "Internal Server Error" });
+    });
 });
 
 export default router;
