@@ -8,7 +8,7 @@ import {
 const router = express.Router();
 
 // Get all used cars
-router.get("/cars", async (req, res) => {
+router.get("/", async (req, res) => {
   getCars()
     .then((cars) => res.status(200).json(cars))
     .catch((error) =>
@@ -26,7 +26,7 @@ router.get("/location/:location", async (req, res) => {
 });
 
 // Sell your car (create a new car listing)
-router.post("/sellcar", async (req, res) => {
+router.post("/cars/sellcar", async (req, res) => {
   addCar(
     req.body.make,
     req.body.model,
