@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Form }  from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import Select from "react-select";
 import "../styles/carsforsale.css";
 
@@ -11,22 +11,22 @@ const CarsForSale = () => {
   const [locationFilter, setLocationFilter] = useState("");
 
   const options = [
-    {value: 'bakersfield', label: 'Bakersfield'},
-    {value: 'chico', label: 'Chico'},
-    {value: 'fresno', label: 'Fresno'},
-    {value: 'los-angeles', label: 'Los Angeles'},
-    {value: 'merced', label: 'Merced'},
-    {value: 'modesto', label: 'Modesto'},
-    {value: 'monterey', label: 'Monterey'},
-    {value: 'redding', label: 'Redding'},
-    {value: 'riverside', label: 'Riverside'},
-    {value: 'sacramento', label: 'Sacramento'},
-    {value: 'san-diego', label: 'San Diego'},
-    {value: 'san-francisco', label: 'San Francisco'},
-    {value: 'san-luis-obispo', label: 'San Luis Obispo'},
-    {value: 'santa-barbara', label: 'Santa Barbara'},
-    {value: 'santa-cruz', label: 'Santa Cruz'},
-    {value: 'stockton', label: 'Stockton'},
+    { value: 'bakersfield', label: 'Bakersfield' },
+    { value: 'chico', label: 'Chico' },
+    { value: 'fresno', label: 'Fresno' },
+    { value: 'los-angeles', label: 'Los Angeles' },
+    { value: 'merced', label: 'Merced' },
+    { value: 'modesto', label: 'Modesto' },
+    { value: 'monterey', label: 'Monterey' },
+    { value: 'redding', label: 'Redding' },
+    { value: 'riverside', label: 'Riverside' },
+    { value: 'sacramento', label: 'Sacramento' },
+    { value: 'san-diego', label: 'San Diego' },
+    { value: 'san-francisco', label: 'San Francisco' },
+    { value: 'san-luis-obispo', label: 'San Luis Obispo' },
+    { value: 'santa-barbara', label: 'Santa Barbara' },
+    { value: 'santa-cruz', label: 'Santa Cruz' },
+    { value: 'stockton', label: 'Stockton' },
   ];
 
   const carsPerPage = 20;
@@ -35,20 +35,22 @@ const CarsForSale = () => {
   const fetchCars = useCallback(
     (page = 1) => {
       setLoading(true);
-      fetch(
-        `${process.env.REACT_APP_SERVER_URL}/cars${
-          locationFilter ? `/location/${locationFilter}` : ""
-        }`
-      )
-        .then((response) => {
-          const totalCars = response.data.length;
+      const locationQuery = locationFilter ? `?location=${locationFilter}` : "";
+      fetch(`${process.env.REACT_APP_SERVER_URL}/cars${locationQuery}`)
+        .then((response) => response.json())
+        .then((data) => {
+          const totalCars = data.length;
           const pages = Math.ceil(totalCars / carsPerPage);
           setTotalPages(pages);
-          const carsSlice = response.data.slice(
-            (page - 1) * carsPerPage,
-            page * carsPerPage
-          );
-          setCars(carsSlice);
+          if (totalCars === 0) {
+            setCars([]);
+          } else {
+            const carsSlice = data.slice(
+              (page - 1) * carsPerPage,
+              page * carsPerPage
+            );
+            setCars(carsSlice);
+          }
         })
         .catch((error) => {
           console.error("Error fetching cars:", error);
@@ -57,7 +59,7 @@ const CarsForSale = () => {
           setLoading(false);
         });
     },
-    [locationFilter, carsPerPage]
+    [carsPerPage, locationFilter]
   );
 
   // Handle pagination
@@ -67,8 +69,8 @@ const CarsForSale = () => {
   };
 
   // Handle location filter change
-  const handleLocationChange = (e) => {
-    setLocationFilter(e.target.value);
+  const handleLocationChange = (selectedOption) => {
+    setLocationFilter(selectedOption.value);
     setCurrentPage(1);
     fetchCars(1); // Fetch from the first page after location changes
   };
@@ -93,7 +95,7 @@ const CarsForSale = () => {
             <Form.Label>Filter by Location:</Form.Label>
             <Select
               options={options}
-              onChange={(selectedOption) => handleLocationChange(selectedOption.value)}
+              onChange={handleLocationChange}
             />
           </Form.Group>
         </Form>

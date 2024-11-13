@@ -69,35 +69,35 @@ const SellCarPage = () => {
       }}>
         <Form.Group controlId="make">
           <Form.Label>Make</Form.Label>
-          <Form.Control type="text" name="make" />
+          <Form.Control type="text" name="make" required />
         </Form.Group>
         <Form.Group controlId="model">
           <Form.Label>Model</Form.Label>
-          <Form.Control type="text" name="model" />
+          <Form.Control type="text" name="model" required />
         </Form.Group>
         <Form.Group controlId="year">
           <Form.Label>Year</Form.Label>
-          <Form.Control type="number" name="year" />
+          <Form.Control type="number" name="year" min="1885" required />
         </Form.Group>
         <Form.Group controlId="price">
           <Form.Label>Price</Form.Label>
-          <Form.Control type="number" name="price" />
+          <Form.Control type="number" name="price" required />
         </Form.Group>
         <Form.Group controlId="location">
           <Form.Label>Location</Form.Label>
-          <Select options={options} name="location" />
+          <Select options={options} name="location" required />
         </Form.Group>
         <Form.Group controlId="price">
           <Form.Label>Mileage</Form.Label>
-          <Form.Control type="number" name="mileage" />
+          <Form.Control type="number" name="mileage" required />
         </Form.Group>
         <Form.Group controlId="contactEmail">
           <Form.Label>Contact Email</Form.Label>
-          <Form.Control type="text" name="contactEmail" />
+          <Form.Control type="text" name="contactEmail" required />
         </Form.Group>
         <Form.Group controlId="contactCell">
           <Form.Label>Contact Cell</Form.Label>
-          <Form.Control type="text" name="contactCell" />
+          <Form.Control type="text" name="contactCell" required />
         </Form.Group>
         <button type="submit" className="btn btn-primary">
           Submit
