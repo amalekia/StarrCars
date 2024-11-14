@@ -38,7 +38,9 @@ const SellCarPage = () => {
       contactEmail: formData.get("contactEmail"),
     };
 
-    fetch(`${process.env.REACT_APP_SERVER_URL}/cars/sellcar`, {
+    console.log(data);
+
+    fetch(`${process.env.REACT_APP_SERVER_URL}/sellcar`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -81,23 +83,28 @@ const SellCarPage = () => {
         </Form.Group>
         <Form.Group controlId="price">
           <Form.Label>Price</Form.Label>
-          <Form.Control type="number" name="price" required />
+          <div className="input-group">
+            <div className="input-group-prepend">
+              <span className="input-group-text">$</span>
+            </div>
+            <Form.Control type="number" step="0.01" name="price" min="0" required />
+          </div>
         </Form.Group>
         <Form.Group controlId="location">
           <Form.Label>Location</Form.Label>
           <Select options={options} name="location" required />
         </Form.Group>
-        <Form.Group controlId="price">
+        <Form.Group controlId="mileage">
           <Form.Label>Mileage</Form.Label>
-          <Form.Control type="number" name="mileage" required />
+          <Form.Control type="number" name="mileage" min="0" required />
         </Form.Group>
         <Form.Group controlId="contactEmail">
           <Form.Label>Contact Email</Form.Label>
-          <Form.Control type="text" name="contactEmail" required />
+          <Form.Control type="email" name="contactEmail" required />
         </Form.Group>
         <Form.Group controlId="contactCell">
           <Form.Label>Contact Cell</Form.Label>
-          <Form.Control type="text" name="contactCell" required />
+          <Form.Control type="tel" name="contactCell" required />
         </Form.Group>
         <button type="submit" className="btn btn-primary">
           Submit
