@@ -62,54 +62,64 @@ const SellCarPage = () => {
   };
 
   return (
-    <div className="sell-car">
-      <h1>Sell Your Car</h1>
-      <p>Fill out the form below to sell your car!</p>
-      <Form onSubmit={(event) => {
-        handleSubmit(event);
-        event.target.reset();
+    <div 
+      style={{ 
+        color: "darkblue", 
+        background: "linear-gradient(to bottom, silver, blue)", 
+        minHeight: "100vh",
+        display: "flex", 
+        justifyContent: "center", 
+        alignItems: "center" 
       }}>
-        <Form.Group controlId="make">
-          <Form.Label>Make</Form.Label>
-          <Form.Control type="text" name="make" required />
-        </Form.Group>
-        <Form.Group controlId="model">
-          <Form.Label>Model</Form.Label>
-          <Form.Control type="text" name="model" required />
-        </Form.Group>
-        <Form.Group controlId="year">
-          <Form.Label>Year</Form.Label>
-          <Form.Control type="number" name="year" min="1885" required />
-        </Form.Group>
-        <Form.Group controlId="price">
-          <Form.Label>Price</Form.Label>
-          <div className="input-group">
-            <div className="input-group-prepend">
-              <span className="input-group-text">$</span>
+      <div className="sell-car">
+        <h1>Sell Your Car</h1>
+        <p>Fill out the form below to sell your car!</p>
+        <Form onSubmit={(event) => {
+          handleSubmit(event);
+          event.target.reset();
+        }}>
+          <Form.Group controlId="make">
+            <Form.Label>Make</Form.Label>
+            <Form.Control type="text" name="make" required />
+          </Form.Group>
+          <Form.Group controlId="model">
+            <Form.Label>Model</Form.Label>
+            <Form.Control type="text" name="model" required />
+          </Form.Group>
+          <Form.Group controlId="year">
+            <Form.Label>Year</Form.Label>
+            <Form.Control type="number" name="year" min="1885" required />
+          </Form.Group>
+          <Form.Group controlId="price">
+            <Form.Label>Price</Form.Label>
+            <div className="input-group">
+              <div className="input-group-prepend">
+                <span className="input-group-text">$</span>
+              </div>
+              <Form.Control type="number" step="0.01" name="price" min="0" required />
             </div>
-            <Form.Control type="number" step="0.01" name="price" min="0" required />
-          </div>
-        </Form.Group>
-        <Form.Group controlId="location">
-          <Form.Label>Location</Form.Label>
-          <Select options={options} name="location" required />
-        </Form.Group>
-        <Form.Group controlId="mileage">
-          <Form.Label>Mileage</Form.Label>
-          <Form.Control type="number" name="mileage" min="0" required />
-        </Form.Group>
-        <Form.Group controlId="contactEmail">
-          <Form.Label>Contact Email</Form.Label>
-          <Form.Control type="email" name="contactEmail" required />
-        </Form.Group>
-        <Form.Group controlId="contactCell">
-          <Form.Label>Contact Cell</Form.Label>
-          <Form.Control type="tel" name="contactCell" required />
-        </Form.Group>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
-      </Form>
+          </Form.Group>
+          <Form.Group controlId="location">
+            <Form.Label>Location</Form.Label>
+            <Select options={options} name="location" required />
+          </Form.Group>
+          <Form.Group controlId="mileage">
+            <Form.Label>Mileage</Form.Label>
+            <Form.Control type="number" name="mileage" min="0" required />
+          </Form.Group>
+          <Form.Group controlId="contactEmail">
+            <Form.Label>Contact Email</Form.Label>
+            <Form.Control type="email" name="contactEmail" required />
+          </Form.Group>
+          <Form.Group controlId="contactCell">
+            <Form.Label>Contact Cell</Form.Label>
+            <Form.Control type="tel" name="contactCell" required />
+          </Form.Group>
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
+        </Form>
+      </div>
     </div>
   );
 };
