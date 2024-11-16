@@ -31,7 +31,6 @@ const CarsForSale = () => {
 
   const carsPerPage = 20;
 
-  // Fetch all cars or filtered by location
   const fetchCars = useCallback(
     (page = 1) => {
       setLoading(true);
@@ -42,37 +41,23 @@ const CarsForSale = () => {
           const totalCars = data.length;
           const pages = Math.ceil(totalCars / carsPerPage);
           setTotalPages(pages);
-          if (totalCars === 0) {
-            setCars([]);
-          } else {
-            const carsSlice = data.slice(
-              (page - 1) * carsPerPage,
-              page * carsPerPage
-            );
-            setCars(carsSlice);
-          }
+          setCars(data.slice((page - 1) * carsPerPage, page * carsPerPage));
         })
-        .catch((error) => {
-          console.error("Error fetching cars:", error);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+        .catch((error) => console.error("Error fetching cars:", error))
+        .finally(() => setLoading(false));
     },
     [carsPerPage, locationFilter]
   );
 
-  // Handle pagination
   const handlePageChange = (page) => {
     setCurrentPage(page);
     fetchCars(page);
   };
 
-  // Handle location filter change
   const handleLocationChange = (selectedOption) => {
-    setLocationFilter(selectedOption.value);
+    setLocationFilter(selectedOption?.value || "");
     setCurrentPage(1);
-    fetchCars(1); // Fetch from the first page after location changes
+    fetchCars(1);
   };
 
   useEffect(() => {
@@ -80,67 +65,56 @@ const CarsForSale = () => {
   }, [currentPage, fetchCars]);
 
   return (
-    <div style={{ 
-      color: "darkblue", 
-      background: "linear-gradient(to bottom, silver, blue)", 
-      minHeight: "100vh",
-      display: "flex", 
-      justifyContent: "center", 
-      alignItems: "center" 
-    }}>
-      <div className="cars-list">
-        <h1>Used Cars</h1>
+    <div className="cars-list">
+      <h1>Used Cars</h1>
 
-        {/* Filter by Location */}
-        <div className="filter-location">
-          <Form
-            onSubmit={(e) => {
-              e.preventDefault();
-              fetchCars(1);
-            }}
-          >
-            <Form.Group>
-              <Form.Label>Filter by Location:</Form.Label>
-              <Select
-                options={options}
-                onChange={handleLocationChange}
-              />
-            </Form.Group>
-          </Form>
-        </div>
-        {loading ? (
-          <div>Loading cars...</div>
-        ) : (
-          <>
-            {/* Cars List */}
-            <div className="cars-grid">
-              {cars.map((car) => (
-                <div key={car.id} className="car-item">
-                  <h2>
-                    {car.make} {car.model}
-                  </h2>
-                  <p>Year: {car.year}</p>
-                  <p>Location: {car.location}</p>
-                  <p>Price: ${car.price}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Pagination */}
-            <div className="pagination">
-              {Array.from({ length: totalPages }, (_, index) => (
-                <button
-                  key={index + 1}
-                  onClick={() => handlePageChange(index + 1)}
-                  className={index + 1 === currentPage ? "active" : ""}
-                >
-                  {index + 1}
-                </button>
-              ))}
-            </div>
-          </>
-        )}
+      {/* Filter by Location */}
+      <div className="filter-location">
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            fetchCars(1);
+          }}
+        >
+          <Form.Group>
+            <Form.Label>Filter by Location:</Form.Label>
+            <Select options={options} onChange={handleLocationChange} />
+          </Form.Group>
+        </Form>
       </div>
+
+      {loading ? (
+        <div>Loading cars...</div>
+      ) : (
+        <>
+          {/* Cars List */}
+          <div className="cars-grid">
+            {cars.map((car) => (
+              <div key={car.id} className="car-item">
+                <h2>
+                  {car.make} {car.model}
+                </h2>
+                <p>Year: {car.year}</p>
+                <p>Location: {car.location}</p>
+                <p>Price: ${car.price}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Pagination */}
+          <div className="pagination">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index + 1}
+                onClick={() => handlePageChange(index + 1)}
+                className={index + 1 === currentPage ? "active" : ""}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };

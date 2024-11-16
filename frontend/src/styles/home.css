@@ -1,0 +1,113 @@
+/* Global Styles */
+body {
+  background-color: #d3d3d3; /* Light grey background */
+  color: #1a1a1a; /* Dark text */
+  font-family: Arial, sans-serif;
+}
+
+/* Home Page Styles */
+.home-container {
+  color: #1a1a1a;
+  background-color: #b0c4de; /* Light steel blue for contrast */
+  padding: 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.home-title {
+  font-size: 5rem;
+  font-weight: bold;
+  font-family: 'Pacifico', cursive;
+  color: #002366; /* Daytona blue for the title */
+  text-shadow: 4px 2px rgba(0, 0, 0, 0.4);
+  margin-bottom: 1rem;
+}
+
+.home-subtitle {
+  font-size: 1.5rem;
+  font-style: italic;
+  color: #333333; /* Dark grey for subtitle */
+  margin-bottom: 2rem;
+}
+
+.card-row {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap; /* Ensure responsiveness */
+}
+
+.card-custom {
+  width: 350px;
+  padding: 1rem;
+  text-align: center;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: 2px solid #002366; /* Daytona blue border */
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-custom:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff; /* White for contrast */
+  text-shadow: 1px 1px #002366; /* Daytona blue shadow */
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.btn-custom {
+  background-color: #002366; /* Daytona blue button */
+  color: #ffffff; /* White text */
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-custom:hover {
+  background-color: #001a4d; /* Darker blue on hover */
+  color: #ffffff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .card-custom {
+    width: 90%;
+    height: auto;
+  }
+
+  .home-title {
+    font-size: 2.5rem;
+  }
+
+  .home-subtitle {
+    font-size: 1.2rem;
+  }
+}
