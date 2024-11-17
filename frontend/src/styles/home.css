@@ -59,12 +59,27 @@
   color: white;
   border: none;
   font-size: 1rem;
-  padding: 10px 20px;
+  padding: 10px 25px;
   border-radius: 5px;
+  display: inline-block;
 }
 
 .btn-custom:hover {
   background-color: #16315b;
+  scale: 1.05;
+  animation: btn-hover 0.5s ease-in-out;
+}
+
+@keyframes btn-hover {
+0% {
+  transform: scale(1);
+}
+50% {
+  transform: scale(1.1);
+}
+100% {
+  transform: scale(1);
+}
 }
 
 .home-footer {

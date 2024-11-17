@@ -25,9 +25,7 @@ mongoose
       process.env.MONGO_PASSWORD +
       "@" +
       process.env.MONGO_CLUSTER +
-      "/" +
-      process.env.MONGO_DB +
-      "?retryWrites=true&w=majority"
+      "/?retryWrites=true&w=majority&appName=CarsCluster"
   )
   .then(() => console.log("Connected to MongoDB"))
   .catch((error) => console.log(error));

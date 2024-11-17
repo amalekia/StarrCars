@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
 import "../styles/home.css";
 
 export default function Home() {
@@ -20,7 +19,7 @@ export default function Home() {
           </p>
           <div className="home-actions">
             <Link to="/carsforsale">
-              <Button className="btn-custom">Search for Used Cars</Button>
+              <div className="btn-custom">Search for Used Cars</div>
             </Link>
           </div>
         </div>
@@ -32,7 +31,7 @@ export default function Home() {
           </p>
           <div className="home-actions">
             <Link to="/sellcar">
-              <Button className="btn-custom">Sell Your Car</Button>
+              <div className="btn-custom">Sell Your Car</div>
             </Link>
           </div>
         </div>

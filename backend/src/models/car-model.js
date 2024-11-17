@@ -18,13 +18,13 @@ const carSchema = new Schema(
       type: Number,
       required: true,
     },
-    mileage: {
-      type: Number,
-      required: false,
-    },
     location: {
       type: String,
       required: true,
+    },
+    mileage: {
+      type: Number,
+      required: false,
     },
     contactCell: {
       type: String,

@@ -20,6 +20,7 @@ function App() {
           <Route path="/sellcar" element={<SellCarPage />}/>
           <Route path="/about" element={<AboutPage />}/>
           <Route path="/contact" element={<ContactPage />}/>
+          {/* <Route path="*" element={<NotFoundPage />} /> */}
         </Routes>
         <Footer />
       </div>

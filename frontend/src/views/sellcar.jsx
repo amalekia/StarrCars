@@ -40,7 +40,7 @@ const SellCarPage = () => {
 
     console.log(data);
 
-    fetch(`${process.env.REACT_APP_SERVER_URL}/sellcar`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/cars/sellcar`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +60,9 @@ const SellCarPage = () => {
     <div className="sell-car-page">
       <header className="sell-car-header">
         <h1 className="sell-car-title">Sell Your Car</h1>
-        <p className="sell-car-subtitle">Easily list your car and reach buyers in no time!</p>
+        <p className="sell-car-subtitle">
+          Easily list your car and reach buyers in no time!
+        </p>
       </header>
       <section className="sell-car-form-section">
         <Form
@@ -88,7 +90,13 @@ const SellCarPage = () => {
               <div className="input-group-prepend">
                 <span className="input-group-text">$</span>
               </div>
-              <Form.Control type="number" step="0.01" name="price" min="0" required />
+              <Form.Control
+                type="number"
+                step="0.01"
+                name="price"
+                min="0"
+                required
+              />
             </div>
           </Form.Group>
           <Form.Group controlId="location">

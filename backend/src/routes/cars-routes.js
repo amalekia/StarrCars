@@ -26,14 +26,14 @@ router.get("/location/:location", async (req, res) => {
 });
 
 // Sell your car (create a new car listing)
-router.post("/cars/sellcar", async (req, res) => {
+router.post("/sellcar", async (req, res) => {
   addCar(
     req.body.make,
     req.body.model,
     req.body.year,
     req.body.price,
-    req.body.mileage,
     req.body.location,
+    req.body.mileage,
     req.body.contactCell,
     req.body.contactEmail
   )
