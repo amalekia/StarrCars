@@ -1,113 +1,74 @@
-/* Global Styles */
-body {
-  background-color: #d3d3d3; /* Light grey background */
-  color: #1a1a1a; /* Dark text */
-  font-family: Arial, sans-serif;
-}
-
-/* Home Page Styles */
 .home-container {
-  color: #1a1a1a;
-  background-color: #b0c4de; /* Light steel blue for contrast */
-  padding: 2rem;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  font-family: "Arial", sans-serif;
+  color: #1e2a78; /* Daytona blue */
+  text-align: center;
+  background: linear-gradient(to bottom, #5b9bd0, #c0c0c0); /* Steel blue to silver */
+  padding: 20px;
 }
 
 .home-header {
-  text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 20px;
 }
 
 .home-title {
-  font-size: 5rem;
+  font-size: 3rem;
   font-weight: bold;
-  font-family: 'Pacifico', cursive;
-  color: #002366; /* Daytona blue for the title */
-  text-shadow: 4px 2px rgba(0, 0, 0, 0.4);
-  margin-bottom: 1rem;
+  font-family: "Pacifico", cursive;
+  font-size: 60px;
+  text-shadow: #666 1px 1px 2px;
+  color: #1e2a78; /* Daytona blue */
 }
 
 .home-subtitle {
   font-size: 1.5rem;
-  font-style: italic;
-  color: #333333; /* Dark grey for subtitle */
-  margin-bottom: 2rem;
+  color: #ffffff;
+  text-shadow: #1e2a78 1px 1px 2px;
+  font-style: oblique;
 }
 
-.card-row {
+.home-section {
   display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap; /* Ensure responsiveness */
+  flex-direction: column;
+  gap: 20px;
+  margin: 0 auto;
+  max-width: 800px;
 }
 
-.card-custom {
-  width: 350px;
-  padding: 1rem;
-  text-align: center;
-  border-radius: 10px;
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  border: 2px solid #002366; /* Daytona blue border */
-  overflow: hidden;
-  position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.home-content {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.card-custom:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+.home-description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  color: #1e2a78; /* Daytona blue */
 }
 
-.card-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #ffffff; /* White for contrast */
-  text-shadow: 1px 1px #002366; /* Daytona blue shadow */
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.home-actions {
+  margin-top: 10px;
 }
 
 .btn-custom {
-  background-color: #002366; /* Daytona blue button */
-  color: #ffffff; /* White text */
+  background-color: #1e2a78; /* Daytona blue */
+  color: white;
   border: none;
   font-size: 1rem;
-  font-weight: bold;
-  text-transform: uppercase;
+  padding: 10px 20px;
   border-radius: 5px;
-  padding: 0.5rem 1rem;
-  position: absolute;
-  bottom: 20%;
-  left: 50%;
-  transform: translate(-50%, 50%);
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .btn-custom:hover {
-  background-color: #001a4d; /* Darker blue on hover */
-  color: #ffffff;
+  background-color: #16315b;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .card-custom {
-    width: 90%;
-    height: auto;
-  }
-
-  .home-title {
-    font-size: 2.5rem;
-  }
-
-  .home-subtitle {
-    font-size: 1.2rem;
-  }
+.home-footer {
+  margin-top: 40px;
+  font-size: 0.9rem;
+  color: #666;
 }

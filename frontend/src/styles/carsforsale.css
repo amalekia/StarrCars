@@ -1,77 +1,54 @@
-/* Global Styles */
-body {
-  background-color: #d3d3d3; /* Light grey background */
-  color: #1a1a1a; /* Dark text */
-  font-family: Arial, sans-serif;
+.cars-for-sale-container {
+  font-family: "Arial", sans-serif;
+  color: #1e2a78; /* Daytona blue */
+  background: linear-gradient(to bottom, #5b9bd0, #c0c0c0);
+  padding: 50px;
 }
 
-/* CarsForSale Component Styles */
-.cars-list {
+.cars-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.cars-title {
+  font-size: 3rem;
+  font-weight: bold;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  color: #1e2a78; /* Daytona blue */
+}
+
+.cars-subtitle {
+  font-size: 1.5rem;
+  color: #666; /* Muted grey */
+}
+
+.cars-section {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #f0f0f0; /* Slightly lighter grey */
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.cars-list h1 {
-  color: #002366; /* Daytona blue for the title */
-  text-align: center;
+.filter-container {
   margin-bottom: 20px;
 }
 
-.filter-location {
-  margin-bottom: 20px;
-}
-
-.filter-location label {
-  color: #002366; /* Daytona blue for form labels */
-  font-weight: bold;
-}
-
-.filter-location .select__control {
-  background-color: #e0e0e0; /* Light grey input fields */
-  border-color: #b3b3b3 !important;
-  color: #1a1a1a !important;
-}
-
-.filter-location .select__placeholder {
-  color: #666666 !important;
-}
-
-.filter-location .select__single-value {
-  color: #1a1a1a !important;
+.filter-label {
+  font-size: 1.2rem;
+  color: #1e2a78;
 }
 
 .cars-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
-  margin-top: 20px;
 }
 
 .car-item {
-  background-color: #ffffff;
-  border: 1px solid #b3b3b3;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
   padding: 20px;
-  text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.car-item:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.car-item h2 {
-  color: #002366; /* Daytona blue for car titles */
-}
-
-.car-item p {
-  color: #333333; /* Dark text */
+  text-align: left;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .pagination {
@@ -80,22 +57,23 @@ body {
   margin-top: 20px;
 }
 
-.pagination button {
-  background-color: #002366; /* Daytona blue */
-  color: #ffffff;
-  border: none;
+.pagination-button {
+  background-color: #f5f5f5;
+  border: 1px solid #1e2a78;
+  color: #1e2a78;
   padding: 10px 15px;
   margin: 0 5px;
-  border-radius: 5px;
-  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  border-radius: 4px;
 }
 
-.pagination button:hover {
-  background-color: #001a4d; /* Darker blue on hover */
+.pagination-button.active {
+  background-color: #1e2a78;
+  color: white;
 }
 
-.pagination button.active {
-  background-color: #ff0000; /* Red for active page */
+.loading-message {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #1e2a78;
 }

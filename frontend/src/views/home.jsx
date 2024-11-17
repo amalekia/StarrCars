@@ -1,45 +1,45 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Card, Row } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import "../styles/home.css";
 
 export default function Home() {
   return (
     <div className="home-container">
       <header className="home-header">
-        <h2 className="home-title">Welcome to StarrCars</h2>
-        <div className="home-subtitle">Your most trusted source to buy cars!</div>
+        <h1 className="home-title">Welcome to StarrCars</h1>
+        <p className="home-subtitle">Your most trusted source to buy and sell cars!</p>
       </header>
-      <div>
-          <Row className="card-row">
-            <Card
-              className="card-custom"
-              style={{ backgroundImage: `url("road.png")` }}
-            >
-              <Card.Body>
-                <Card.Title className="card-title">
-                  Let's get you rollin' on some new wheels!
-                </Card.Title>
-                <Link to="/carsforsale">
-                  <Button className="btn-custom">Search for Used Cars</Button>
-                </Link>
-              </Card.Body>
-            </Card>
-            <Card
-              className="card-custom"
-              style={{ backgroundImage: `url("raceflag.png")` }}
-            >
-              <Card.Body>
-                <Card.Title className="card-title">
-                  Let us help sell your car with our expertise!
-                </Card.Title>
-                <Link to="/sellcar">
-                  <Button className="btn-custom">Sell Your Car</Button>
-                </Link>
-              </Card.Body>
-            </Card>
-          </Row>
+      <section className="home-section">
+        <div className="home-content">
+          <p className="home-description">
+            At StarrCars, we pride ourselves on offering a seamless and enjoyable car-buying experience. 
+            Browse through our extensive inventory of high-quality used cars, each inspected to meet our
+            stringent standards. Whether you're a first-time buyer or a seasoned car enthusiast, 
+            StarrCars is here to help you find the perfect ride.
+          </p>
+          <div className="home-actions">
+            <Link to="/carsforsale">
+              <Button className="btn-custom">Search for Used Cars</Button>
+            </Link>
+          </div>
         </div>
+        <div className="home-content">
+          <p className="home-description">
+            Looking to sell your car? StarrCars offers a hassle-free process that gets your vehicle
+            listed and sold faster. Our team of professionals will guide you every step of the way, 
+            ensuring you get the best deal possible.
+          </p>
+          <div className="home-actions">
+            <Link to="/sellcar">
+              <Button className="btn-custom">Sell Your Car</Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+      <footer className="home-footer">
+        <p>Drive your dreams with StarrCars – Daytona blue, light grey, and everything in between.</p>
+      </footer>
     </div>
   );
 }

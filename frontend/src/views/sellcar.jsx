@@ -47,12 +47,7 @@ const SellCarPage = () => {
       },
       body: JSON.stringify(data),
     })
-      .then((response) => {
-        // if (!response.ok) {
-        //   throw new Error(`HTTP error! status: ${response.status}`);
-        // }
-        response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
       })
@@ -62,22 +57,19 @@ const SellCarPage = () => {
   };
 
   return (
-    <div 
-      style={{ 
-        color: "darkblue", 
-        background: "linear-gradient(to bottom, silver, blue)", 
-        minHeight: "100vh",
-        display: "flex", 
-        justifyContent: "center", 
-        alignItems: "center" 
-      }}>
-      <div className="sell-car">
-        <h1>Sell Your Car</h1>
-        <p>Fill out the form below to sell your car!</p>
-        <Form onSubmit={(event) => {
-          handleSubmit(event);
-          event.target.reset();
-        }}>
+    <div className="sell-car-page">
+      <header className="sell-car-header">
+        <h1 className="sell-car-title">Sell Your Car</h1>
+        <p className="sell-car-subtitle">Easily list your car and reach buyers in no time!</p>
+      </header>
+      <section className="sell-car-form-section">
+        <Form
+          onSubmit={(event) => {
+            handleSubmit(event);
+            event.target.reset();
+          }}
+          className="sell-car-form"
+        >
           <Form.Group controlId="make">
             <Form.Label>Make</Form.Label>
             <Form.Control type="text" name="make" required />
@@ -115,11 +107,11 @@ const SellCarPage = () => {
             <Form.Label>Contact Cell</Form.Label>
             <Form.Control type="tel" name="contactCell" required />
           </Form.Group>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-submit">
             Submit
           </button>
         </Form>
-      </div>
+      </section>
     </div>
   );
 };

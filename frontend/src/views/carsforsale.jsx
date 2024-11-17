@@ -11,22 +11,22 @@ const CarsForSale = () => {
   const [locationFilter, setLocationFilter] = useState("");
 
   const options = [
-    { value: 'bakersfield', label: 'Bakersfield' },
-    { value: 'chico', label: 'Chico' },
-    { value: 'fresno', label: 'Fresno' },
-    { value: 'los-angeles', label: 'Los Angeles' },
-    { value: 'merced', label: 'Merced' },
-    { value: 'modesto', label: 'Modesto' },
-    { value: 'monterey', label: 'Monterey' },
-    { value: 'redding', label: 'Redding' },
-    { value: 'riverside', label: 'Riverside' },
-    { value: 'sacramento', label: 'Sacramento' },
-    { value: 'san-diego', label: 'San Diego' },
-    { value: 'san-francisco', label: 'San Francisco' },
-    { value: 'san-luis-obispo', label: 'San Luis Obispo' },
-    { value: 'santa-barbara', label: 'Santa Barbara' },
-    { value: 'santa-cruz', label: 'Santa Cruz' },
-    { value: 'stockton', label: 'Stockton' },
+    { value: "bakersfield", label: "Bakersfield" },
+    { value: "chico", label: "Chico" },
+    { value: "fresno", label: "Fresno" },
+    { value: "los-angeles", label: "Los Angeles" },
+    { value: "merced", label: "Merced" },
+    { value: "modesto", label: "Modesto" },
+    { value: "monterey", label: "Monterey" },
+    { value: "redding", label: "Redding" },
+    { value: "riverside", label: "Riverside" },
+    { value: "sacramento", label: "Sacramento" },
+    { value: "san-diego", label: "San Diego" },
+    { value: "san-francisco", label: "San Francisco" },
+    { value: "san-luis-obispo", label: "San Luis Obispo" },
+    { value: "santa-barbara", label: "Santa Barbara" },
+    { value: "santa-cruz", label: "Santa Cruz" },
+    { value: "stockton", label: "Stockton" },
   ];
 
   const carsPerPage = 20;
@@ -65,56 +65,60 @@ const CarsForSale = () => {
   }, [currentPage, fetchCars]);
 
   return (
-    <div className="cars-list">
-      <h1>Used Cars</h1>
+    <div className="cars-for-sale-container">
+      <header className="cars-header">
+        <h1 className="cars-title">Explore Our Used Cars</h1>
+        <p className="cars-subtitle">Find your dream car today!</p>
+      </header>
+      <section className="cars-section">
+        <div className="filter-container">
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
+              fetchCars(1);
+            }}
+          >
+            <Form.Group>
+              <Form.Label className="filter-label">Filter by Location:</Form.Label>
+              <Select options={options} onChange={handleLocationChange} />
+            </Form.Group>
+          </Form>
+        </div>
 
-      {/* Filter by Location */}
-      <div className="filter-location">
-        <Form
-          onSubmit={(e) => {
-            e.preventDefault();
-            fetchCars(1);
-          }}
-        >
-          <Form.Group>
-            <Form.Label>Filter by Location:</Form.Label>
-            <Select options={options} onChange={handleLocationChange} />
-          </Form.Group>
-        </Form>
-      </div>
+        {loading ? (
+          <div className="loading-message">Loading cars...</div>
+        ) : (
+          <>
+            <div className="cars-grid">
+              {cars.map((car) => (
+                <div key={car.id} className="car-item">
+                  <h2>
+                    {car.make} {car.model}
+                  </h2>
+                  <p>Year: {car.year}</p>
+                  <p>Location: {car.location}</p>
+                  <p>Price: ${car.price}</p>
+                </div>
+              ))}
+            </div>
 
-      {loading ? (
-        <div>Loading cars...</div>
-      ) : (
-        <>
-          {/* Cars List */}
-          <div className="cars-grid">
-            {cars.map((car) => (
-              <div key={car.id} className="car-item">
-                <h2>
-                  {car.make} {car.model}
-                </h2>
-                <p>Year: {car.year}</p>
-                <p>Location: {car.location}</p>
-                <p>Price: ${car.price}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Pagination */}
-          <div className="pagination">
-            {Array.from({ length: totalPages }, (_, index) => (
-              <button
-                key={index + 1}
-                onClick={() => handlePageChange(index + 1)}
-                className={index + 1 === currentPage ? "active" : ""}
-              >
-                {index + 1}
-              </button>
-            ))}
-          </div>
-        </>
-      )}
+            {/* Pagination */}
+            <div className="pagination">
+              {Array.from({ length: totalPages }, (_, index) => (
+                <button
+                  key={index + 1}
+                  onClick={() => handlePageChange(index + 1)}
+                  className={`pagination-button ${
+                    index + 1 === currentPage ? "active" : ""
+                  }`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
+      </section>
     </div>
   );
 };
