@@ -4,6 +4,13 @@
   text-align: center;
   background: linear-gradient(to bottom, #5b9bd0, #c0c0c0); /* Steel blue to silver */
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 60px;
+}
+
+.home-content {
+  flex: 1;
 }
 
 .home-header {
