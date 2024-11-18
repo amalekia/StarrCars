@@ -30,17 +30,15 @@ const SellCarPage = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
-    const formData = new FormData(form);
-
     const data = {
-      carMake: formData.get("make"),
-      carModel: formData.get("model"),
-      year: Number(formData.get("year")),
-      price: Number(formData.get("price")),
-      mileage: Number(formData.get("mileage")),
+      carMake: form.make.value,
+      carModel: form.model.value,
+      year: Number(form.year.value),
+      price: Number(form.price.value),
+      mileage: Number(form.mileage.value),
       location: selectedLocation?.value,
-      contactCell: formData.get("contactCell"),
-      contactEmail: formData.get("contactEmail"),
+      contactCell: form.contactCell.value,
+      contactEmail: form.contactEmail.value,
     };
 
     console.log(data);
@@ -52,7 +50,9 @@ const SellCarPage = () => {
       },
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        return response.json();
+      })
       .then((data) => {
         console.log("Success:", data);
       })
@@ -65,7 +65,7 @@ const SellCarPage = () => {
   if (error) {
     return <ErrorPage />;
   }
-  
+
   return (
     <div className="sell-car-page">
       <header className="sell-car-header">
