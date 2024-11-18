@@ -28,19 +28,21 @@ router.get("/location/:location", async (req, res) => {
 // Sell your car (create a new car listing)
 router.post("/sellcar", async (req, res) => {
   addCar(
-    req.body.make,
-    req.body.model,
+    req.body.carMake,
+    req.body.carModel,
     req.body.year,
     req.body.price,
-    req.body.location,
     req.body.mileage,
+    req.body.location,
     req.body.contactCell,
     req.body.contactEmail
   )
     .then((newCar) => res.status(201).json(newCar))
     .catch((error) => {
       const statusCode = error.status || 500;
-      res.status(statusCode).json({ message: error.message || "Internal Server Error" });
+      res
+        .status(statusCode)
+        .json({ message: error.message || "Internal Server Error" });
     });
 });
 
