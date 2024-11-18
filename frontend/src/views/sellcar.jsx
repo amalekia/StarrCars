@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 import { Form } from "react-bootstrap";
 import "../styles/sellcar.css";
+import ErrorPage from "./errorpage";
 
 const SellCarPage = () => {
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [error, setError] = useState(null);
+
   const options = [
     { value: "bakersfield", label: "Bakersfield" },
     { value: "chico", label: "Chico" },
@@ -27,13 +31,14 @@ const SellCarPage = () => {
     event.preventDefault();
     const form = event.target;
     const formData = new FormData(form);
+
     const data = {
-      make: formData.get("make"),
-      model: formData.get("model"),
-      year: formData.get("year"),
-      price: formData.get("price"),
-      mileage: formData.get("mileage"),
-      location: formData.get("location"),
+      carMake: formData.get("make"),
+      carModel: formData.get("model"),
+      year: Number(formData.get("year")),
+      price: Number(formData.get("price")),
+      mileage: Number(formData.get("mileage")),
+      location: selectedLocation?.value,
       contactCell: formData.get("contactCell"),
       contactEmail: formData.get("contactEmail"),
     };
@@ -53,9 +58,14 @@ const SellCarPage = () => {
       })
       .catch((error) => {
         console.error("Error:", error);
+        setError(error);
       });
   };
 
+  if (error) {
+    return <ErrorPage />;
+  }
+  
   return (
     <div className="sell-car-page">
       <header className="sell-car-header">
@@ -101,7 +111,11 @@ const SellCarPage = () => {
           </Form.Group>
           <Form.Group controlId="location">
             <Form.Label>Location</Form.Label>
-            <Select options={options} name="location" required />
+            <Select
+              options={options}
+              onChange={(selectedOption) => setSelectedLocation(selectedOption)}
+              required
+            />
           </Form.Group>
           <Form.Group controlId="mileage">
             <Form.Label>Mileage</Form.Label>

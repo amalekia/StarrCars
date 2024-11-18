@@ -1,0 +1,52 @@
+/* General styling */
+.error-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    background: linear-gradient(180deg, #f8f9fa, #d9e3f0);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Title styling */
+  .error-title {
+    font-size: 5rem;
+    color: #003e6b; /* Daytona blue */
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  /* Message styling */
+  .error-message {
+    font-size: 1.5rem;
+    color: #555; /* Neutral light grey */
+    margin-bottom: 1rem;
+  }
+  
+  /* Call-to-action text */
+  .error-cta {
+    font-size: 1.25rem;
+    color: #666;
+    margin-bottom: 2rem;
+  }
+  
+  /* Link button styling */
+  .error-link {
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: white;
+    background-color: #003e6b; /* Daytona blue */
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .error-link:hover {
+    background-color: #005599;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+  }
+  

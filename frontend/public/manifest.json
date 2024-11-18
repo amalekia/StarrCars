@@ -1,0 +1,7 @@
+{
+  "name": "StarrCars",
+  "short_name": "StarrCars",
+  "description": "Your trusted source to buy and sell cars online.",
+  "start_url": "/",
+  "display": "standalone"
+}

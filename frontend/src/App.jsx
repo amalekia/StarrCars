@@ -7,6 +7,7 @@ import CarsForSale from "./views/carsforsale";
 import SellCarPage from "./views/sellcar";
 import AboutPage from "./views/about";
 import ContactPage from "./views/contact";
+import NotFoundPage from "./views/errorpage";
 
 function App() {
 
@@ -20,7 +21,7 @@ function App() {
           <Route path="/sellcar" element={<SellCarPage />}/>
           <Route path="/about" element={<AboutPage />}/>
           <Route path="/contact" element={<ContactPage />}/>
-          {/* <Route path="*" element={<NotFoundPage />} /> */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <Footer />
       </div>

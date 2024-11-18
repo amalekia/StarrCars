@@ -30,10 +30,10 @@ function NavigationBar() {
           </Navbar.Brand>
         </Nav>
         <Nav className="mr-auto">
-          <Nav.Link as={Link} to="/carsforsale" style={{ color: "black" }}>
+          <Nav.Link as={Link} to="/carsforsale" style={{ color: "#1e2a78" }}>
             Used Cars for Sale
           </Nav.Link>
-          <Nav.Link as={Link} to="/sellcar" style={{ color: "black" }}>
+          <Nav.Link as={Link} to="/sellcar" style={{ color: "#1e2a78" }}>
             Sell Your Car
           </Nav.Link>
         </Nav>
