@@ -35,8 +35,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/cars", carsRouter);
-// app.use("/export", exportRouter);
-// app.use("/import", importRouter);
 
 //running the server
 app.listen(process.env.PORT, () => {

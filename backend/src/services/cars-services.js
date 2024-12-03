@@ -5,11 +5,20 @@ export const getCars = async () => {
   return cars;
 };
 
-export const addCar = async (make, model, year, price, mileage, location, contactCell, contactEmail) => {
+export const addCar = async (
+  carMake,
+  carModel,
+  year,
+  price,
+  mileage,
+  location,
+  contactCell,
+  contactEmail
+) => {
   try {
     const newCar = new Car({
-      make,
-      model,
+      carMake,
+      carModel,
       year,
       price,
       mileage,

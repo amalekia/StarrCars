@@ -27,18 +27,18 @@ const SellCarPage = () => {
     { value: "stockton", label: "Stockton" },
   ];
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const form = event.target;
+    const form = new FormData(event.target);
     const data = {
-      carMake: form.make.value,
-      carModel: form.model.value,
-      year: Number(form.year.value),
-      price: Number(form.price.value),
-      mileage: Number(form.mileage.value),
+      carMake: form.get("carMake"),
+      carModel: form.get("carModel"),
+      year: Number(form.get("year")),
+      price: Number(form.get("price")),
+      mileage: Number(form.get("mileage")),
       location: selectedLocation?.value,
-      contactCell: form.contactCell.value,
-      contactEmail: form.contactEmail.value,
+      contactCell: form.get("contactCell"),
+      contactEmail: form.get("contactEmail"),
     };
 
     console.log(data);
@@ -82,17 +82,23 @@ const SellCarPage = () => {
           }}
           className="sell-car-form"
         >
-          <Form.Group controlId="make">
+          <Form.Group controlId="carMake">
             <Form.Label>Make</Form.Label>
-            <Form.Control type="text" name="make" required />
+            <Form.Control type="text" name="carMake" required />
           </Form.Group>
-          <Form.Group controlId="model">
+          <Form.Group controlId="carModel">
             <Form.Label>Model</Form.Label>
-            <Form.Control type="text" name="model" required />
+            <Form.Control type="text" name="carModel" required />
           </Form.Group>
           <Form.Group controlId="year">
             <Form.Label>Year</Form.Label>
-            <Form.Control type="number" name="year" min="1885" required />
+            <Form.Control
+              type="number"
+              name="year"
+              min="1885"
+              max={new Date().getFullYear()}
+              required
+            />
           </Form.Group>
           <Form.Group controlId="price">
             <Form.Label>Price</Form.Label>
@@ -127,7 +133,13 @@ const SellCarPage = () => {
           </Form.Group>
           <Form.Group controlId="contactCell">
             <Form.Label>Contact Cell</Form.Label>
-            <Form.Control type="tel" name="contactCell" required />
+            <Form.Control
+              type="tel"
+              name="contactCell"
+              pattern="[0-9]{10}"
+              title="Enter a 10-digit phone number"
+              required
+            />
           </Form.Group>
           <button type="submit" className="btn btn-submit">
             Submit
