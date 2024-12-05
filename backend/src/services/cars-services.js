@@ -41,3 +41,8 @@ export const getCarsByLocation = async (location) => {
   const cars = await Car.find({ location });
   return cars;
 };
+
+export const getCarsByMakeAndModel = async (make, model) => {
+  const cars = await Car.find({ carMake: make, carModel: model });
+  return cars;
+};

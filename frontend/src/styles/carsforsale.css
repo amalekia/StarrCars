@@ -19,7 +19,9 @@
 
 .cars-subtitle {
   font-size: 1.5rem;
-  color: #666; /* Muted grey */
+  color: #fff;
+  font-style: italic;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .cars-section {

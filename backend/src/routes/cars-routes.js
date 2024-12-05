@@ -46,4 +46,17 @@ router.post("/sellcar", async (req, res) => {
     });
 });
 
+// Find cars by make and model
+router.get("/:make/:model", async (req, res) => {
+  const make = req.params.make;
+  const model = req.params.model;
+
+  getCarsByMakeAndModel(make, model)
+    .then((cars) => res.status(200).json(cars))
+    .catch((error) =>
+      res.status(error.status).json({ message: error.message })
+    );
+});
+
+
 export default router;
