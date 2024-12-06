@@ -46,3 +46,14 @@ export const getCarsByMakeAndModel = async (make, model) => {
   const cars = await Car.find({ carMake: make, carModel: model });
   return cars;
 };
+
+export const deleteCar = async (id) => {
+  try {
+    await Car.findByIdAndDelete(id);
+  } catch (error) {
+    throw {
+      message: error.message,
+      status: 404,
+    };
+  }
+}

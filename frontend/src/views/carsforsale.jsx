@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import Select from "react-select";
 import "../styles/carsforsale.css";
 
@@ -76,6 +76,30 @@ const CarsForSale = () => {
     fetchCars(1);
   };
 
+  const handleDelete = (carId) => {
+    if (window.confirm("Are you sure you want to delete this car post?")) {
+      setLoading(true);
+      console.log(carId);
+      fetch(`${process.env.REACT_APP_SERVER_URL}/cars/${carId}`, {
+        method: "DELETE",
+        headers: {
+        "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }})
+        .then((data) => {
+        console.log("Success:", data);
+        })
+        .catch((error) => {
+        console.error("Error:", error);
+        });
+      fetchCars(1);
+    }
+  };
+  
   useEffect(() => {
     fetchCars(currentPage);
   }, [currentPage, fetchCars]);
@@ -107,12 +131,13 @@ const CarsForSale = () => {
           <>
             <div className="cars-grid">
               {cars.map((car) => (
-                <div key={car.id} className="car-item">
+                <div key={car._id} className="car-item">
                   <h4>
                     {car.year} {car.carMake} {car.carModel}
                   </h4>
                   <p>Location: {car.location}</p>
                   <p>Price: ${car.price}</p>
+                  <Button variant="outline-danger" onClick={() => handleDelete(car._id)}>Delete Post</Button>
                 </div>
               ))}
             </div>

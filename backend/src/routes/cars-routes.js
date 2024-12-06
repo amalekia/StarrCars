@@ -3,6 +3,7 @@ import {
   getCars,
   getCarsByLocation,
   addCar,
+  deleteCar,
 } from "../services/cars-services.js";
 
 const router = express.Router();
@@ -44,6 +45,15 @@ router.post("/sellcar", async (req, res) => {
         .status(statusCode)
         .json({ message: error.message || "Internal Server Error" });
     });
+});
+
+// Delete car by id
+router.delete("/:id", async (req, res) => {
+  deleteCar(req.params.id)
+    .then(() => res.status(204).send())
+    .catch((error) =>
+      res.status(error.status).json({ message: error.message })
+    );
 });
 
 // Find cars by make and model
