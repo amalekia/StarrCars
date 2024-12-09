@@ -2,7 +2,7 @@
   font-family: "Arial", sans-serif;
   color: #1e2a78; /* Daytona blue */
   text-align: center;
-  background: linear-gradient(to bottom, #5b9bd0, #c0c0c0); /* Steel blue to silver */
+  background: linear-gradient(to left, #5b9bd0, #c0c0c0); /* Steel blue to silver */
   padding: 20px;
   display: flex;
   flex-direction: column;

@@ -3,7 +3,7 @@
     max-width: 900px; /* Center content */
     margin: 50px auto; /* Add spacing from top and center horizontally */
     padding: 40px 20px; /* Balanced padding for all screen sizes */
-    background-color: #ffffff; /* Clean white background for content focus */
+    background: linear-gradient(to right, #f0f4ff, #ffffff); /* Clean white background for content focus */
     border-radius: 10px;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Subtle shadow for a modern card look */
     text-align: center;
