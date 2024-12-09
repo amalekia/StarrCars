@@ -1,6 +1,6 @@
 import Car from "../models/car-model.js";
 
-export const getCars = async () => {
+export const getAllCars = async () => {
   const cars = await Car.find();
   return cars;
 };

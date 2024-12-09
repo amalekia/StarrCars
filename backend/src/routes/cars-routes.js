@@ -8,22 +8,22 @@ import {
 
 const router = express.Router();
 
-// Get all used cars
+// Get used cars for sale
 router.get("/", async (req, res) => {
-  getCars()
-    .then((cars) => res.status(200).json(cars))
-    .catch((error) =>
-      res.status(error.status).json({ message: error.message })
-    );
-});
-
-// Get used cars by location
-router.get("/location/:location", async (req, res) => {
-  getCarsByLocation(req.params.location)
-    .then((cars) => res.status(200).json(cars))
-    .catch((error) =>
-      res.status(error.status).json({ message: error.message })
-    );
+  const location = req.query.location;
+  if (location) {
+    getCarsByLocation(location)
+      .then((cars) => res.status(200).json(cars))
+      .catch((error) =>
+        res.status(error.status || 500).json({ message: error.message || "Internal Server Error" })
+      );
+  } else {
+    getCars()
+      .then((cars) => res.status(200).json(cars))
+      .catch((error) =>
+        res.status(error.status || 500).json({ message: error.message || "Internal Server Error" })
+      );
+  }
 });
 
 // Sell your car (create a new car listing)

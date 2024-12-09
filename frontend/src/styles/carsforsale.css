@@ -33,6 +33,12 @@
   margin-bottom: 20px;
 }
 
+.filter-form{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .filter-label {
   font-size: 1.2rem;
   color: #1e2a78;

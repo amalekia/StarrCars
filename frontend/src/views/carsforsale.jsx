@@ -50,6 +50,7 @@ const CarsForSale = () => {
   const fetchCars = useCallback(
     (page = 1) => {
       setLoading(true);
+      console.log(locationFilter);
       const locationQuery = locationFilter ? `?location=${locationFilter}` : "";
       fetch(`${process.env.REACT_APP_SERVER_URL}/cars${locationQuery}`)
         .then((response) => response.json())
@@ -72,8 +73,6 @@ const CarsForSale = () => {
 
   const handleLocationChange = (selectedOption) => {
     setLocationFilter(selectedOption?.value || "");
-    setCurrentPage(1);
-    fetchCars(1);
   };
 
   const handleDelete = (carId) => {
@@ -113,15 +112,19 @@ const CarsForSale = () => {
       <section className="cars-section">
         <div className="filter-container">
           <Form
-            onSubmit={(e) => {
-              e.preventDefault();
+            className="filter-form"
+            onSubmit={(event) => {
+              event.preventDefault();
               fetchCars(1);
             }}
           >
-            <Form.Group>
+            <Form.Group style={{ flex: 1 }}>
               <Form.Label className="filter-label">Filter by Location:</Form.Label>
               <Select options={options} onChange={handleLocationChange} />
             </Form.Group>
+            <Button variant="danger" onClick={() => setLocationFilter("")}>
+              Remove Filter
+            </Button>
           </Form>
         </div>
 
