@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Button, Form } from "react-bootstrap";
 import Select from "react-select";
 import "../styles/carsforsale.css";
+import { Link } from "react-router-dom";
 
 const CarsForSale = () => {
   const [cars, setCars] = useState([]);
@@ -117,7 +118,7 @@ const CarsForSale = () => {
               event.preventDefault();
               fetchCars(1);
             }}
-          >
+            >
             <Form.Group style={{ flex: 1 }}>
               <Form.Label className="filter-label">Filter by Location:</Form.Label>
               <Select options={options} onChange={handleLocationChange} />
@@ -125,23 +126,25 @@ const CarsForSale = () => {
             <Button variant="danger" onClick={() => setLocationFilter("")}>
               Remove Filter
             </Button>
-          </Form>
-        </div>
+            </Form>
+          </div>
 
-        {loading ? (
-          <div className="loading-message">Loading cars...</div>
-        ) : (
-          <>
+          {loading ? (
+            <div className="loading-message">Loading cars...</div>
+          ) : (
+            <>
             <div className="cars-grid">
               {cars.map((car) => (
-                <div key={car._id} className="car-item">
-                  <h4>
-                    {car.year} {car.carMake} {car.carModel}
-                  </h4>
-                  <p>Location: {car.location}</p>
-                  <p>Price: ${car.price}</p>
-                  <Button variant="outline-danger" onClick={() => handleDelete(car._id)}>Delete Post</Button>
-                </div>
+              <div key={car._id} className="car-item">
+                <h4>
+                <Link to={`/viewcar/${car._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  {car.year} {car.carMake} {car.carModel}
+                </Link>
+                </h4>
+                <p>Location: {car.location}</p>
+                <p>Price: ${car.price}</p>
+                <Button variant="outline-danger" onClick={() => handleDelete(car._id)}>Delete Post</Button>
+              </div>
               ))}
             </div>
 

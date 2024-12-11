@@ -13,7 +13,9 @@ export const addCar = async (
   mileage,
   location,
   contactCell,
-  contactEmail
+  contactEmail,
+  // images,
+  description
 ) => {
   try {
     const newCar = new Car({
@@ -25,6 +27,8 @@ export const addCar = async (
       location,
       contactCell,
       contactEmail,
+      // images,
+      description,
     });
 
     // Save the new car to the database
@@ -46,6 +50,11 @@ export const getCarsByMakeAndModel = async (make, model) => {
   const cars = await Car.find({ carMake: make, carModel: model });
   return cars;
 };
+
+export const getCarById = async (id) => {
+  const car = await Car.find({ _id : id });
+  return car;
+}
 
 export const deleteCar = async (id) => {
   try {

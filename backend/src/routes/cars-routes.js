@@ -4,6 +4,8 @@ import {
   getCarsByLocation,
   addCar,
   deleteCar,
+  getCarsByMakeAndModel,
+  getCarById,
 } from "../services/cars-services.js";
 
 const router = express.Router();
@@ -36,7 +38,9 @@ router.post("/sellcar", async (req, res) => {
     req.body.mileage,
     req.body.location,
     req.body.contactCell,
-    req.body.contactEmail
+    req.body.contactEmail,
+    // req.body.images,
+    req.body.description
   )
     .then((newCar) => res.status(201).json(newCar))
     .catch((error) => {
@@ -63,6 +67,15 @@ router.get("/:make/:model", async (req, res) => {
 
   getCarsByMakeAndModel(make, model)
     .then((cars) => res.status(200).json(cars))
+    .catch((error) =>
+      res.status(error.status).json({ message: error.message })
+    );
+});
+
+// Get car by id
+router.get("/:id", async (req, res) => {
+  getCarById(req.params.id)
+    .then((car) => res.status(200).json(car))
     .catch((error) =>
       res.status(error.status).json({ message: error.message })
     );

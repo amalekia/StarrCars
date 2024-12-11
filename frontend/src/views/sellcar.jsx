@@ -39,6 +39,7 @@ const SellCarPage = () => {
       location: selectedLocation?.value,
       contactCell: form.get("contactCell"),
       contactEmail: form.get("contactEmail"),
+      description: form.get("description"),
     };
 
     console.log(data);
@@ -127,6 +128,10 @@ const SellCarPage = () => {
             <Form.Label>Mileage</Form.Label>
             <Form.Control type="number" name="mileage" min="0" required />
           </Form.Group>
+          <Form.Group controlId="description">
+            <Form.Label>Description</Form.Label>
+            <Form.Control as="textarea" rows={3} name="description" />
+          </Form.Group>
           <Form.Group controlId="contactEmail">
             <Form.Label>Contact Email</Form.Label>
             <Form.Control type="email" name="contactEmail" required />
@@ -138,6 +143,7 @@ const SellCarPage = () => {
               name="contactCell"
               pattern="[0-9]{10}"
               title="Enter a 10-digit phone number"
+              style={{ marginBottom: "1rem" }}
               required
             />
           </Form.Group>

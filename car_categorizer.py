@@ -67,3 +67,17 @@ new_car = {
 
 cluster = categorize_car(**new_car)
 print(f"The new car belongs to cluster: {cluster}")
+# Add price column to the DataFrame
+df['price'] = [16000, 21000, 17000, 22000, 15000]
+
+# Function to predict price range
+def predict_price_range(cluster):
+    cluster_prices = df[df['cluster'] == cluster]['price']
+    if cluster_prices.empty:
+        return "Price data not available for this cluster"
+    avg_price = cluster_prices.mean()
+    return f"${avg_price - 1000} - ${avg_price + 1000}"
+
+# Predict price range for the new car
+price_range = predict_price_range(cluster)
+print(f"The suggested price range for the new car is: {price_range}")
