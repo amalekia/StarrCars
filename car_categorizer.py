@@ -1,8 +1,8 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import accuracy_score
+from sklearn.cluster import KMeans
+from sklearn.neighbors import NearestNeighbors
 
 # Sample data
 data = {
@@ -12,47 +12,28 @@ data = {
     'fuel_economy': [30, 25, 20, 35, 40],
     'horsepower': [200, 150, 180, 220, 160],
     'length': [180, 175, 170, 185, 190],
-    'cluster': [0, 1, 0, 1, 0]  # Example clusters
+    'price': [16000, 21000, 17000, 22000, 15000]  # Example prices
 }
 
 # Create DataFrame
 df = pd.DataFrame(data)
 
-# Features and target
+# Features
 X = df[['year', 'mileage', 'fuel_economy', 'horsepower', 'length']]
-y = df['cluster']
-
-# Split the data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Standardize the features
 scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
+X_scaled = scaler.fit_transform(X)
 
-# Perform GridSearchCV to find the best number of neighbors
-param_grid = {'n_neighbors': range(1, 11)}
-grid_search = GridSearchCV(KNeighborsClassifier(), param_grid, cv=5)
-grid_search.fit(X_train_scaled, y_train)
+# Perform K-means clustering
+kmeans = KMeans(n_clusters=2, random_state=42)
+df['cluster'] = kmeans.fit_predict(X_scaled)
 
-# Best number of neighbors
-best_n_neighbors = grid_search.best_params_['n_neighbors']
-print(f"Best number of neighbors: {best_n_neighbors}")
-
-# Create and train the KNN model with the best number of neighbors
-knn = KNeighborsClassifier(n_neighbors=best_n_neighbors)
-knn.fit(X_train_scaled, y_train)
-
-# Evaluate the model
-y_pred = knn.predict(X_test_scaled)
-accuracy = accuracy_score(y_test, y_pred)
-print(f"Model accuracy: {accuracy}")
-
-# Function to categorize a new car
-def categorize_car(model, year, mileage, fuel_economy, horsepower, length):
+# Function to categorize a new car using K-means
+def categorize_car_kmeans(year, mileage, fuel_economy, horsepower, length):
     car_features = [[year, mileage, fuel_economy, horsepower, length]]
     car_features_scaled = scaler.transform(car_features)
-    cluster = knn.predict(car_features_scaled)
+    cluster = kmeans.predict(car_features_scaled)
     return cluster[0]
 
 # Example usage
@@ -65,19 +46,27 @@ new_car = {
     'length': 180
 }
 
-cluster = categorize_car(**new_car)
+cluster = categorize_car_kmeans(**new_car)
 print(f"The new car belongs to cluster: {cluster}")
-# Add price column to the DataFrame
-df['price'] = [16000, 21000, 17000, 22000, 15000]
+
+# Use KNN to find the 10 closest related vehicles
+knn = NearestNeighbors(n_neighbors=10)
+knn.fit(X_scaled)
+
+# Find the 10 closest vehicles
+car_features = [[new_car['year'], new_car['mileage'], new_car['fuel_economy'], new_car['horsepower'], new_car['length']]]
+car_features_scaled = scaler.transform(car_features)
+distances, indices = knn.kneighbors(car_features_scaled)
 
 # Function to predict price range
-def predict_price_range(cluster):
-    cluster_prices = df[df['cluster'] == cluster]['price']
-    if cluster_prices.empty:
-        return "Price data not available for this cluster"
-    avg_price = cluster_prices.mean()
+def predict_price_range():
+    closest_vehicles = df.iloc[indices[0]]
+    print("The 10 closest related vehicles are:")
+    print(closest_vehicles)
+
+    avg_price = closest_vehicles['price'].mean()
     return f"${avg_price - 1000} - ${avg_price + 1000}"
 
 # Predict price range for the new car
-price_range = predict_price_range(cluster)
+price_range = predict_price_range()
 print(f"The suggested price range for the new car is: {price_range}")

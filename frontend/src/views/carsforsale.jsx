@@ -127,23 +127,23 @@ const CarsForSale = () => {
               Remove Filter
             </Button>
             </Form>
-          </div>
+            </div>
 
-          {loading ? (
+            {loading ? (
             <div className="loading-message">Loading cars...</div>
-          ) : (
+            ) : (
             <>
             <div className="cars-grid">
               {cars.map((car) => (
               <div key={car._id} className="car-item">
-                <h4>
-                <Link to={`/viewcar/${car._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                  {car.year} {car.carMake} {car.carModel}
-                </Link>
-                </h4>
-                <p>Location: {car.location}</p>
-                <p>Price: ${car.price}</p>
-                <Button variant="outline-danger" onClick={() => handleDelete(car._id)}>Delete Post</Button>
+              <h4>
+              <Link to={`/viewcar/${car._id}`} style={{ textDecoration: 'none', color: 'inherit', fontWeight: 'bold' }}>
+                {car.year} {car.carMake} {car.carModel}
+              </Link>
+              </h4>
+              <p><strong>Location:</strong> {car.location}</p>
+              <p><strong>Price:</strong> ${car.price}</p>
+              <Button variant="outline-danger" onClick={() => handleDelete(car._id)}>Delete Post</Button>
               </div>
               ))}
             </div>
