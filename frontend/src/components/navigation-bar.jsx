@@ -36,6 +36,9 @@ function NavigationBar() {
           <Nav.Link as={Link} to="/sellcar" style={{ color: "#1e2a78" }}>
             Sell Your Car
           </Nav.Link>
+          <Nav.Link as={Link} to="/aiassistant" style={{ color: "#1e2a78" }}>
+            AI Assistant
+          </Nav.Link>
         </Nav>
       </Container>
     </Navbar>

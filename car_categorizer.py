@@ -6,6 +6,7 @@ from sklearn.neighbors import NearestNeighbors
 
 # Sample data
 data = {
+    'make': ['Toyota', 'Honda', 'Ford', 'Chevrolet', 'Nissan'],
     'model': ['A', 'B', 'C', 'D', 'E'],
     'year': [2010, 2011, 2012, 2013, 2014],
     'mileage': [50000, 40000, 30000, 20000, 10000],
@@ -19,7 +20,7 @@ data = {
 df = pd.DataFrame(data)
 
 # Features
-X = df[['year', 'mileage', 'fuel_economy', 'horsepower', 'length']]
+X = df[['make', 'model', 'year', 'mileage', 'fuel_economy', 'horsepower', 'length']]
 
 # Standardize the features
 scaler = StandardScaler()
@@ -30,14 +31,15 @@ kmeans = KMeans(n_clusters=2, random_state=42)
 df['cluster'] = kmeans.fit_predict(X_scaled)
 
 # Function to categorize a new car using K-means
-def categorize_car_kmeans(year, mileage, fuel_economy, horsepower, length):
-    car_features = [[year, mileage, fuel_economy, horsepower, length]]
+def categorize_car_kmeans(make, model, year, mileage, fuel_economy, horsepower, length):
+    car_features = [[make, model, year, mileage, fuel_economy, horsepower, length]]
     car_features_scaled = scaler.transform(car_features)
     cluster = kmeans.predict(car_features_scaled)
     return cluster[0]
 
 # Example usage
 new_car = {
+    'make': 'Ford',
     'model': 'F',
     'year': 2015,
     'mileage': 15000,
@@ -54,7 +56,7 @@ knn = NearestNeighbors(n_neighbors=10)
 knn.fit(X_scaled)
 
 # Find the 10 closest vehicles
-car_features = [[new_car['year'], new_car['mileage'], new_car['fuel_economy'], new_car['horsepower'], new_car['length']]]
+car_features = [[new_car['make'], new_car['model'], new_car['year'], new_car['mileage'], new_car['fuel_economy'], new_car['horsepower'], new_car['length']]]
 car_features_scaled = scaler.transform(car_features)
 distances, indices = knn.kneighbors(car_features_scaled)
 

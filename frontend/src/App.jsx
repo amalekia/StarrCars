@@ -9,6 +9,7 @@ import AboutPage from "./views/about";
 import ContactPage from "./views/contact";
 import NotFoundPage from "./views/errorpage";
 import ViewCarPage from "./views/viewcar";
+import AIAssistant from "./views/aiassistant";
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
           <Route path="/contact" element={<ContactPage />}/>
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/viewcar/:id" element={<ViewCarPage />} />
+          <Route path="/aiassistant" element={<AIAssistant />} />
         </Routes>
         <Footer />
       </div>
