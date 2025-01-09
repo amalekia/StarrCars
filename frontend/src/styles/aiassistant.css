@@ -3,5 +3,87 @@
     color: #1e2a78; /* Daytona blue */
     background: linear-gradient(to left, #5b9bd0, #c0c0c0);
     padding: 50px;
+    text-align: center;
 }
-
+  
+.ai-assistant-container h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #1e2a78;
+}
+  
+.ai-assistant-container p {
+    font-size: 1.5rem;
+    color: #fff;
+    font-style: italic;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+  
+.loading-screen {
+    font-size: 1.5rem;
+    color: #1e2a78;
+    font-weight: bold;
+}
+  
+h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1e2a78;
+}
+  
+.estimated-price-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    margin-top: 20px;
+}
+  
+.estimated-price-container h2 {
+    margin-bottom: 15px;
+}
+  
+.reset-button {
+    background-color: #1e2a78;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+  
+.reset-button:hover {
+    background-color: #142063;
+}
+  
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+  
+.MuiTextField-root {
+    width: 100% !important;
+    margin-bottom: 15px;
+}
+  
+.MuiButton-outlined {
+    background-color: #1e2a78;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+  
+.MuiButton-outlined:hover {
+    background-color: #142063;
+}
+  

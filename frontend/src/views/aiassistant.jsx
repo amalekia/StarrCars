@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import '../styles/aiassistant.css';
 import React, { useState } from 'react';
-        
+
 export default function AIAssistant() {
     const [loading, setLoading] = useState(false);
     const [priceRange, setPriceRange] = useState(null);
@@ -25,25 +25,26 @@ export default function AIAssistant() {
             {loading ? (
                 <div className="loading-screen">Loading...</div>
             ) : priceRange ? (
-                <div>
+                <div className="estimated-price-container">
                     <h2>Estimated Price Range: {priceRange}</h2>
+                    <Button className="reset-button" variant="outlined" onClick={() => setPriceRange(null)}>Reset</Button>
                 </div>
             ) : (
                 <Box
                     component="form"
-                    sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
+                    sx={{ '& > :not(style)': { m: 1, width: '100%' }, display: 'flex', flexDirection: 'column', alignItems: 'center' }}
                     noValidate
                     autoComplete="off"
                     onSubmit={handleSubmit}
                 >
-                    <TextField id="filled-basic" label="Make" variant="filled" />
-                    <TextField id="filled-basic" label="Model" variant="filled" />
-                    <TextField id="filled-basic" label="Year" variant="filled" />
-                    <TextField id="filled-basic" label="Length" variant="filled" />
-                    <TextField id="filled-basic" label="Fuel Economy" variant="filled" />
-                    <TextField id="filled-basic" label="Mileage" variant="filled" />
-                    <TextField id="filled-basic" label="Condition" variant="filled" />
-                    <Button variant="outlined" type="submit">Submit</Button>
+                    <TextField id="make" label="Make" variant="filled" className="MuiTextField-root" />
+                    <TextField id="model" label="Model" variant="filled" className="MuiTextField-root" />
+                    <TextField id="year" label="Year" variant="filled" className="MuiTextField-root" />
+                    <TextField id="length" label="Length" variant="filled" className="MuiTextField-root" />
+                    <TextField id="fuel-economy" label="Fuel Economy" variant="filled" className="MuiTextField-root" />
+                    <TextField id="mileage" label="Mileage" variant="filled" className="MuiTextField-root" />
+                    <TextField id="condition" label="Condition" variant="filled" className="MuiTextField-root" />
+                    <Button className="MuiButton-outlined" variant="outlined" type="submit" sx={{ mt: 2 }}>Submit</Button>
                 </Box>
             )}
         </div>
