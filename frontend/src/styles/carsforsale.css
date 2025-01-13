@@ -3,6 +3,7 @@
   color: #1e2a78; /* Daytona blue */
   background: linear-gradient(to left, #5b9bd0, #c0c0c0);
   padding: 50px;
+  min-height: 100vh;
 }
 
 .cars-header {
@@ -13,7 +14,7 @@
 .cars-title {
   font-size: 3rem;
   font-weight: bold;
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: #1e2a78; /* Daytona blue */
 }
 
@@ -33,10 +34,11 @@
   margin-bottom: 20px;
 }
 
-.filter-form{
+.filter-form {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .filter-label {
@@ -44,21 +46,68 @@
   color: #1e2a78;
 }
 
+/* Grid layout for cars */
 .cars-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
 }
 
+/* Car Item Styling */
 .car-item {
   background-color: white;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  text-align: left;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
+.car-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Car Image Styling */
+.car-item img {
+  width: 100%;
+  height: 180px; /* Adjust height for uniformity */
+  object-fit: cover; /* Ensures consistent sizing */
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.car-item img:hover {
+  transform: scale(1.1);
+}
+
+/* Car Details */
+.car-item h4 {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  font-weight: bold;
+  color: #1e2a78;
+}
+
+.car-item p {
+  font-size: 1rem;
+  margin: 5px 0;
+  color: #333;
+}
+
+.car-item strong {
+  color: #1e2a78;
+}
+
+/* Delete Button */
+.car-item .btn-outline-danger {
+  margin-top: 10px;
+  width: 100%;
+  font-weight: bold;
+}
+
+/* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
@@ -73,6 +122,12 @@
   margin: 0 5px;
   cursor: pointer;
   border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.pagination-button:hover {
+  background-color: #1e2a78;
+  color: white;
 }
 
 .pagination-button.active {
@@ -80,8 +135,28 @@
   color: white;
 }
 
+/* Loading Message */
 .loading-message {
   text-align: center;
   font-size: 1.5rem;
   color: #1e2a78;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cars-title {
+    font-size: 2.2rem;
+  }
+
+  .cars-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .cars-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+
+  .car-item img {
+    height: 160px;
+  }
 }

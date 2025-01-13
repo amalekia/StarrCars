@@ -7,6 +7,7 @@ import ErrorPage from "./errorpage";
 const SellCarPage = () => {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [error, setError] = useState(null);
+  const [selectedImages, setSelectedImages] = useState([]);
 
   const options = [
     { value: "bakersfield", label: "Bakersfield" },
@@ -39,6 +40,7 @@ const SellCarPage = () => {
       location: selectedLocation?.value,
       contactCell: form.get("contactCell"),
       contactEmail: form.get("contactEmail"),
+      images: selectedImages.map((image) => image),
       description: form.get("description"),
     };
 
@@ -143,8 +145,21 @@ const SellCarPage = () => {
               name="contactCell"
               pattern="[0-9]{10}"
               title="Enter a 10-digit phone number"
-              style={{ marginBottom: "1rem" }}
               required
+            />
+          </Form.Group>
+          <Form.Group controlId="carImages">
+            <Form.Label>Upload Images</Form.Label>
+            <Form.Control
+              type="file"
+              name="carImages"
+              style={{ marginBottom: "1rem" }}
+              multiple
+              onChange={(event) => {
+                const files = Array.from(event.target.files);
+                const images = files.map((file) => URL.createObjectURL(file));
+                setSelectedImages(images);
+              }}
             />
           </Form.Group>
           <button type="submit" className="btn btn-submit">

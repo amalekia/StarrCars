@@ -39,7 +39,7 @@ router.post("/sellcar", async (req, res) => {
     req.body.location,
     req.body.contactCell,
     req.body.contactEmail,
-    // req.body.images,
+    req.body.images,
     req.body.description
   )
     .then((newCar) => res.status(201).json(newCar))

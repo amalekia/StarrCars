@@ -14,7 +14,7 @@ export const addCar = async (
   location,
   contactCell,
   contactEmail,
-  // images,
+  images,
   description
 ) => {
   try {
@@ -27,7 +27,7 @@ export const addCar = async (
       location,
       contactCell,
       contactEmail,
-      // images,
+      images,
       description,
     });
 

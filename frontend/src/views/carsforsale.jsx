@@ -95,8 +95,8 @@ const CarsForSale = () => {
         })
         .catch((error) => {
         console.error("Error:", error);
-        });
-      fetchCars(1);
+        fetchCars(1);
+      });
     }
   };
   
@@ -136,14 +136,17 @@ const CarsForSale = () => {
             <div className="cars-grid">
               {cars.map((car) => (
               <div key={car._id} className="car-item">
-              <h4>
-              <Link to={`/viewcar/${car._id}`} style={{ textDecoration: 'none', color: 'inherit', fontWeight: 'bold' }}>
-                {car.year} {car.carMake} {car.carModel}
-              </Link>
-              </h4>
-              <p><strong>Location:</strong> {car.location}</p>
-              <p><strong>Price:</strong> ${car.price}</p>
-              <Button variant="outline-danger" onClick={() => handleDelete(car._id)}>Delete Post</Button>
+                {car.images && car.images.length > 0 && (
+                <img src={car.images[0]} alt="Car" />
+                )}
+                <h4>
+                <Link to={`/viewcar/${car._id}`} style={{ textDecoration: 'none', color: 'inherit', fontWeight: 'bold' }}>
+                  {car.year} {car.carMake} {car.carModel}
+                </Link>
+                </h4>
+                <p><strong>Location:</strong> {car.location}</p>
+                <p><strong>Price:</strong> ${car.price}</p>
+                <Button variant="outline-danger" onClick={() => handleDelete(car._id)}>Delete Post</Button>
               </div>
               ))}
             </div>

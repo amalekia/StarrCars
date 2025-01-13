@@ -43,19 +43,29 @@ export default function ViewCarPage() {
                     <h1 className="view-car-title">{car.carMake} {car.carModel}</h1>
                 </Col>
             </Row>
-
-            {/* {car.images && car.images.length > 0 && (
-                <Row className="image-grid">
-                    {car.images.map((image, index) => (
-                        <Col md={4} key={index}>
-                            <Card>
-                                <Card.Img variant="top" src={image} alt={`Image ${index + 1}`} />
-                            </Card>
-                        </Col>
-                    ))}
+            {car.images && car.images.length > 0 && (
+                <Row className="image-wheel">
+                    <Col>
+                        <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
+                            <div className="carousel-inner">
+                                {car.images.map((image, index) => (
+                                    <div className={`carousel-item ${index === 0 ? "active" : ""}`} key={index}>
+                                        <img src={image} className="d-block w-100" alt={`Car ${index + 1}`} />
+                                    </div>
+                                ))}
+                            </div>
+                            <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
+                                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span className="visually-hidden">Previous</span>
+                            </a>
+                            <a className="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
+                                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span className="visually-hidden">Next</span>
+                            </a>
+                        </div>
+                    </Col>
                 </Row>
-            )} */}
-
+            )}
             <Row>
                 <Col md={8}>
                     <Card className="vehicle-details-card">
