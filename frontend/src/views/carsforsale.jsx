@@ -83,23 +83,25 @@ const CarsForSale = () => {
       fetch(`${process.env.REACT_APP_SERVER_URL}/cars/${carId}`, {
         method: "DELETE",
         headers: {
-        "Content-Type": "application/json",
+          "Content-Type": "application/json",
         },
       })
         .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }})
-        .then((data) => {
-        console.log("Success:", data);
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+        })
+        .then(() => {
+          // Successfully deleted the car, now refetch cars
+          fetchCars(currentPage);
         })
         .catch((error) => {
-        console.error("Error:", error);
-        fetchCars(1);
-      });
+          console.error("Error:", error);
+          setLoading(false); // Ensure loading is set to false on error
+        });
     }
   };
-  
+
   useEffect(() => {
     fetchCars(currentPage);
   }, [currentPage, fetchCars]);
@@ -118,7 +120,7 @@ const CarsForSale = () => {
               event.preventDefault();
               fetchCars(1);
             }}
-            >
+          >
             <Form.Group style={{ flex: 1 }}>
               <Form.Label className="filter-label">Filter by Location:</Form.Label>
               <Select options={options} onChange={handleLocationChange} />
@@ -126,28 +128,43 @@ const CarsForSale = () => {
             <Button variant="danger" onClick={() => setLocationFilter("")}>
               Remove Filter
             </Button>
-            </Form>
-            </div>
+          </Form>
+        </div>
 
-            {loading ? (
-            <div className="loading-message">Loading cars...</div>
-            ) : (
-            <>
+        {loading ? (
+          <div className="loading-message">Loading cars...</div>
+        ) : cars.length === 0 ? (
+          <div className="loading-message">Oops, seems like nobody wants to sell their car this time around!</div>
+        ) : (
+          <>
             <div className="cars-grid">
               {cars.map((car) => (
-              <div key={car._id} className="car-item">
-                {car.images && car.images.length > 0 && (
-                <img src={car.images[0]} alt="Car" />
-                )}
-                <h4>
-                <Link to={`/viewcar/${car._id}`} style={{ textDecoration: 'none', color: 'inherit', fontWeight: 'bold' }}>
-                  {car.year} {car.carMake} {car.carModel}
-                </Link>
-                </h4>
-                <p><strong>Location:</strong> {car.location}</p>
-                <p><strong>Price:</strong> ${car.price}</p>
-                <Button variant="outline-danger" onClick={() => handleDelete(car._id)}>Delete Post</Button>
-              </div>
+                <div key={car._id} className="car-item">
+                  {car.images && car.images.length > 0 && (
+                    <img src={car.images[0]} alt="Car" />
+                  )}
+                  <h4>
+                    <Link
+                      to={`/viewcar/${car._id}`}
+                      style={{
+                        textDecoration: "none",
+                        color: "inherit",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {car.year} {car.carMake} {car.carModel}
+                    </Link>
+                  </h4>
+                  <p>
+                    <strong>Location:</strong> {car.location}
+                  </p>
+                  <p>
+                    <strong>Price:</strong> ${car.price}
+                  </p>
+                  <Button variant="outline-danger" onClick={() => handleDelete(car._id)}>
+                    Delete Post
+                  </Button>
+                </div>
               ))}
             </div>
 

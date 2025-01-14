@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import {
   getCars,
   getCarsByLocation,
@@ -6,13 +6,13 @@ import {
   deleteCar,
   getCarsByMakeAndModel,
   getCarById,
-} from "../services/cars-services.js";
+} from "../services/cars-services";
 
 const router = express.Router();
 
 // Get used cars for sale
-router.get("/", async (req, res) => {
-  const location = req.query.location;
+router.get("/", async (req: Request, res: Response) => {
+  const location = req.query.location as string;
   if (location) {
     getCarsByLocation(location)
       .then((cars) => res.status(200).json(cars))
@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
 });
 
 // Sell your car (create a new car listing)
-router.post("/sellcar", async (req, res) => {
+router.post("/sellcar", async (req: Request, res: Response) => {
   addCar(
     req.body.carMake,
     req.body.carModel,
@@ -52,7 +52,7 @@ router.post("/sellcar", async (req, res) => {
 });
 
 // Delete car by id
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", async (req: Request, res: Response) => {
   deleteCar(req.params.id)
     .then(() => res.status(204).send())
     .catch((error) =>
@@ -61,7 +61,7 @@ router.delete("/:id", async (req, res) => {
 });
 
 // Find cars by make and model
-router.get("/:make/:model", async (req, res) => {
+router.get("/:make/:model", async (req: Request, res: Response) => {
   const make = req.params.make;
   const model = req.params.model;
 
@@ -73,13 +73,12 @@ router.get("/:make/:model", async (req, res) => {
 });
 
 // Get car by id
-router.get("/:id", async (req, res) => {
+router.get("/:id", async (req: Request, res: Response) => {
   getCarById(req.params.id)
     .then((car) => res.status(200).json(car))
     .catch((error) =>
       res.status(error.status).json({ message: error.message })
     );
 });
-
 
 export default router;

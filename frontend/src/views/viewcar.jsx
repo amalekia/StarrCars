@@ -18,7 +18,7 @@ export default function ViewCarPage() {
                     throw new Error("Network response was not ok");
                 }
                 const data = await response.json();
-                setCar(data[0]);
+                setCar(data);
             } catch (error) {
                 console.error("Error fetching car details:", error);
             } finally {
@@ -40,7 +40,7 @@ export default function ViewCarPage() {
         <Container className="view-car-container">
             <Row className="view-car-header">
                 <Col>
-                    <h1 className="view-car-title">{car.carMake} {car.carModel}</h1>
+                    <h1 className="view-car-title"> {car.year} {car.carMake} {car.carModel}</h1>
                 </Col>
             </Row>
             {car.images && car.images.length > 0 && (
@@ -54,11 +54,11 @@ export default function ViewCarPage() {
                                     </div>
                                 ))}
                             </div>
-                            <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
+                            <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev" data-bs-target="#carouselExampleControls">
                                 <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span className="visually-hidden">Previous</span>
                             </a>
-                            <a className="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
+                            <a className="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next" data-bs-target="#carouselExampleControls">
                                 <span className="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span className="visually-hidden">Next</span>
                             </a>

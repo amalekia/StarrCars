@@ -3,7 +3,8 @@ import cors from "cors";
 import mongoose from "mongoose";
 import "dotenv/config";
 import cookieParser from "cookie-parser";
-import carsRouter from "./routes/cars-routes.js";
+import carsRouter from "./routes/cars-routes";
+
 
 const app = express();
 
@@ -28,7 +29,7 @@ mongoose
       "/?retryWrites=true&w=majority&appName=CarsCluster"
   )
   .then(() => console.log("Connected to MongoDB"))
-  .catch((error) => console.log(error));
+  .catch((error: Error) => console.log(error));
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
