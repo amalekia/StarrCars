@@ -6,6 +6,7 @@ import {
   deleteCar,
   getCarsByMakeAndModel,
   getCarById,
+  upload,
 } from "../services/cars-services";
 
 const router = express.Router();
@@ -29,26 +30,14 @@ router.get("/", async (req: Request, res: Response) => {
 });
 
 // Sell your car (create a new car listing)
-router.post("/sellcar", async (req: Request, res: Response) => {
-  addCar(
-    req.body.carMake,
-    req.body.carModel,
-    req.body.year,
-    req.body.price,
-    req.body.mileage,
-    req.body.location,
-    req.body.contactCell,
-    req.body.contactEmail,
-    req.body.images,
-    req.body.description
-  )
-    .then((newCar) => res.status(201).json(newCar))
-    .catch((error) => {
-      const statusCode = error.status || 500;
-      res
-        .status(statusCode)
-        .json({ message: error.message || "Internal Server Error" });
-    });
+router.post("/sellcar", upload, async (req: Request, res: Response) => {
+  try {
+    const newCar = await addCar(req);
+    res.status(201).json(newCar);
+  } catch (error) {
+    const err = error as { status?: number; message?: string };
+    res.status(err.status || 500).json({ message: err.message || "Internal Server Error" });
+  }
 });
 
 // Delete car by id

@@ -30,39 +30,30 @@ const SellCarPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const form = new FormData(event.target);
-    const data = {
-      carMake: form.get("carMake"),
-      carModel: form.get("carModel"),
-      year: Number(form.get("year")),
-      price: Number(form.get("price")),
-      mileage: Number(form.get("mileage")),
-      location: selectedLocation?.value,
-      contactCell: form.get("contactCell"),
-      contactEmail: form.get("contactEmail"),
-      images: selectedImages.map((image) => image),
-      description: form.get("description"),
-    };
+    const formData = new FormData(event.target);
+    
+    // Append each selected image file
+    selectedImages.forEach((file) => formData.append("images", file));
+    formData.append("location", selectedLocation.value);
 
-    console.log(data);
-
-    fetch(`${process.env.REACT_APP_SERVER_URL}/cars/sellcar`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Success:", data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setError(error);
+    console.log("Form data:", formData.entries());
+  
+    try {
+      const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/cars/sellcar`, {
+        method: "POST",
+        body: formData,
       });
+  
+      if (!response.ok) {
+        throw new Error("Failed to upload car details.");
+      }
+  
+      const data = await response.json();
+      console.log("Car uploaded successfully:", data);
+    } catch (error) {
+      console.error("Error uploading car:", error);
+      setError(error);
+    }
   };
 
   if (error) {
@@ -152,13 +143,12 @@ const SellCarPage = () => {
             <Form.Label>Upload Images</Form.Label>
             <Form.Control
               type="file"
-              name="carImages"
-              style={{ marginBottom: "1rem" }}
+              name="images"
               multiple
+              accept="image/*"
               onChange={(event) => {
                 const files = Array.from(event.target.files);
-                const images = files.map((file) => URL.createObjectURL(file));
-                setSelectedImages(images);
+                setSelectedImages(files);
               }}
             />
           </Form.Group>

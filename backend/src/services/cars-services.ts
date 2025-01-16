@@ -1,4 +1,30 @@
 import Car from "../models/car-model";
+import { Request } from "express";
+import fs from "fs";
+import path from "path";
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import multer from "multer";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME!,
+  api_key: process.env.CLOUDINARY_API_KEY!,
+  api_secret: process.env.CLOUDINARY_API_SECRET!,
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    public_id: (req, file) => `starrcars-${Date.now()}-${file.originalname}`, // Generate unique image names
+  },
+});
+
+const upload = multer({ storage }).array("images", 10);
+
+export { cloudinary, upload };
 
 interface CarType {
   carMake: string;
@@ -18,29 +44,23 @@ export const getCars = async (): Promise<CarType[]> => {
   return cars;
 };
 
-export const addCar = async (
-  carMake: string,
-  carModel: string,
-  year: number,
-  price: number,
-  mileage: number,
-  location: string,
-  contactCell: string,
-  contactEmail: string,
-  images?: string[],
-  description?: string
-): Promise<CarType> => {
+export const addCar = async (req: Request): Promise<CarType> => {
   try {
+    const imageUrls: string[] = req.files ? (req.files as Express.Multer.File[]).map((file: any) => file.path) : [];
+    req.body.images = imageUrls;
+
+    const { carMake, carModel, year, price, mileage, location, contactCell, contactEmail, description } = req.body;
+
     const newCar = new Car({
       carMake,
       carModel,
-      year,
-      price,
-      mileage,
+      year: Number(year),
+      price: Number(price),
+      mileage: Number(mileage),
       location,
       contactCell,
       contactEmail,
-      images,
+      images: imageUrls,
       description,
     });
 
@@ -71,11 +91,32 @@ export const getCarById = async (id: string): Promise<CarType | null> => {
 
 export const deleteCar = async (id: string): Promise<void> => {
   try {
+    const car = await Car.findById(id);
+    if (!car) {
+      throw {
+        message: "Car not found",
+        status: 404,
+      };
+    }
+
+    if (car.images && car.images.length > 0) {
+      car.images.forEach((imagePath) => {
+        const filePath = path.join(__dirname, "..", imagePath); // Adjust path based on server structure
+
+        fs.unlink(filePath, (err) => {
+          if (err) {
+            console.error(`Failed to delete image: ${imagePath}`, err);
+          }
+        });
+      });
+    }
+
+    // Remove the car entry from MongoDB
     await Car.findByIdAndDelete(id);
   } catch (error: any) {
     throw {
-      message: error.message,
-      status: 404,
+      message: error.message || "Error deleting car",
+      status: 500,
     };
   }
 };
