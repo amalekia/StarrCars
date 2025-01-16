@@ -100,15 +100,12 @@ export const deleteCar = async (id: string): Promise<void> => {
     }
 
     if (car.images && car.images.length > 0) {
-      car.images.forEach((imagePath) => {
-        const filePath = path.join(__dirname, "..", imagePath); // Adjust path based on server structure
-
-        fs.unlink(filePath, (err) => {
-          if (err) {
-            console.error(`Failed to delete image: ${imagePath}`, err);
-          }
-        });
+      const deletePromises = car.images.map((imageUrl) => {
+        const publicId = path.basename(imageUrl, path.extname(imageUrl));
+        return cloudinary.uploader.destroy(publicId);
       });
+
+      await Promise.all(deletePromises);
     }
 
     // Remove the car entry from MongoDB

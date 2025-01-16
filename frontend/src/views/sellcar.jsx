@@ -47,9 +47,9 @@ const SellCarPage = () => {
       if (!response.ok) {
         throw new Error("Failed to upload car details.");
       }
-  
       const data = await response.json();
       console.log("Car uploaded successfully:", data);
+      // Redirect to the updated cars for sale page
     } catch (error) {
       console.error("Error uploading car:", error);
       setError(error);
