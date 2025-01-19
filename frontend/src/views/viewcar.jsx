@@ -74,6 +74,9 @@ export default function ViewCarPage() {
                             <Card.Text>
                                 <strong>Mileage:</strong> {car.mileage}
                             </Card.Text>
+                            <Card.Text>
+                                <strong>Asking Price:</strong> ${car.price}
+                            </Card.Text>
                             <Card.Text>{car.description}</Card.Text>
                         </Card.Body>
                     </Card>

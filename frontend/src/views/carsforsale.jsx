@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Button, Form } from "react-bootstrap";
-import Select from "react-select";
+import { Button } from "react-bootstrap";
 import "../styles/carsforsale.css";
 import { Link } from "react-router-dom";
+import { Box, Grid2, FormControl, InputLabel, MenuItem, Select as MuiSelect } from '@mui/material';
 
 const CarsForSale = () => {
   const [cars, setCars] = useState([]);
@@ -51,7 +51,6 @@ const CarsForSale = () => {
   const fetchCars = useCallback(
     (page = 1) => {
       setLoading(true);
-      console.log(locationFilter);
       const locationQuery = locationFilter ? `?location=${locationFilter}` : "";
       fetch(`${process.env.REACT_APP_SERVER_URL}/cars${locationQuery}`)
         .then((response) => response.json())
@@ -72,14 +71,9 @@ const CarsForSale = () => {
     fetchCars(page);
   };
 
-  const handleLocationChange = (selectedOption) => {
-    setLocationFilter(selectedOption?.value || "");
-  };
-
   const handleDelete = (carId) => {
     if (window.confirm("Are you sure you want to delete this car post?")) {
       setLoading(true);
-      console.log(carId);
       fetch(`${process.env.REACT_APP_SERVER_URL}/cars/${carId}`, {
         method: "DELETE",
         headers: {
@@ -92,12 +86,11 @@ const CarsForSale = () => {
           }
         })
         .then(() => {
-          // Successfully deleted the car, now refetch cars
           fetchCars(currentPage);
         })
         .catch((error) => {
           console.error("Error:", error);
-          setLoading(false); // Ensure loading is set to false on error
+          setLoading(false); 
         });
     }
   };
@@ -113,23 +106,36 @@ const CarsForSale = () => {
         <p className="cars-subtitle">Find your dream car today!</p>
       </header>
       <section className="cars-section">
-        <div className="filter-container">
-          <Form
-            className="filter-form"
-            onSubmit={(event) => {
-              event.preventDefault();
-              fetchCars(1);
-            }}
-          >
-            <Form.Group style={{ flex: 1 }}>
-              <Form.Label className="filter-label">Filter by Location:</Form.Label>
-              <Select options={options} onChange={handleLocationChange} />
-            </Form.Group>
-            <Button variant="danger" onClick={() => setLocationFilter("")}>
+      <Box className="filter-container" mb={3}>
+        <Grid2 container spacing={2} justifyContent="center">
+          <Grid2 item xs={12} sm={10} md={6}>
+            <FormControl fullWidth>
+              <InputLabel>Filter by Location</InputLabel>
+              <MuiSelect
+                value={locationFilter}
+                onChange={(event) => setLocationFilter(event.target.value)}
+                displayEmpty
+                style={{ minWidth: "350px" }}
+              >
+                {options.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </MuiSelect>
+            </FormControl>
+          </Grid2>
+          <Grid2 item xs={12} sm={10} md={6}>
+            <Button
+              fullWidth
+              variant="danger"
+              onClick={() => setLocationFilter("")}
+            >
               Remove Filter
             </Button>
-          </Form>
-        </div>
+          </Grid2>
+        </Grid2>
+      </Box>
 
         {loading ? (
           <div className="loading-message">Loading cars...</div>
@@ -141,7 +147,10 @@ const CarsForSale = () => {
               {cars.map((car) => (
                 <div key={car._id} className="car-item">
                   {car.images && car.images.length > 0 && (
-                    <img src={car.images[0]} alt="Car" />
+                    <Link
+                      to={`/viewcar/${car._id}`}>
+                      <img src={car.images[0]} alt="Car" />
+                    </Link>
                   )}
                   <h4>
                     <Link
@@ -161,7 +170,7 @@ const CarsForSale = () => {
                   <p>
                     <strong>Price:</strong> ${car.price}
                   </p>
-                  <Button variant="outline-danger" onClick={() => handleDelete(car._id)}>
+                  <Button variant="secondary" onClick={() => handleDelete(car._id)}>
                     Delete Post
                   </Button>
                 </div>
