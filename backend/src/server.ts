@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import "dotenv/config";
 import cookieParser from "cookie-parser";
 import carsRouter from "./routes/cars-routes";
+import userRouter from "./routes/user-routes";
 
 
 const app = express();
@@ -36,6 +37,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/cars", carsRouter);
+app.use("/user", userRouter);
 
 //running the server
 app.listen(process.env.PORT, () => {

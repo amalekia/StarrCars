@@ -1,11 +1,13 @@
 import Car from "../models/car-model";
 import { Request } from "express";
-import fs from "fs";
 import path from "path";
 import { v2 as cloudinary } from "cloudinary";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
+import { UserContext } from "../util/auth";
 import multer from "multer";
 import dotenv from "dotenv";
+import { Types } from "mongoose";
+import { User } from "../models/user-model";
 
 dotenv.config();
 
@@ -27,6 +29,7 @@ const upload = multer({ storage }).array("images", 10);
 export { cloudinary, upload };
 
 interface CarType {
+  creator: Types.ObjectId;
   carMake: string;
   carModel: string;
   year: number;
@@ -44,7 +47,17 @@ export const getCars = async (): Promise<CarType[]> => {
   return cars;
 };
 
-export const addCar = async (req: Request): Promise<CarType> => {
+export const addCar = async (req: Request, user: UserContext | undefined): Promise<CarType> => {
+  if (!user) {
+    return Promise.reject({ message: "User not found", status: 404 });
+  }
+  const creator = user._id;
+  const username = await User.findById(creator);
+
+  if (!username) {
+    return Promise.reject({ message: "User not found", status: 404 });
+  }
+
   try {
     const imageUrls: string[] = req.files ? (req.files as Express.Multer.File[]).map((file: any) => file.path) : [];
     req.body.images = imageUrls;
@@ -52,6 +65,7 @@ export const addCar = async (req: Request): Promise<CarType> => {
     const { carMake, carModel, year, price, mileage, location, contactCell, contactEmail, description } = req.body;
 
     const newCar = new Car({
+      creator,
       carMake,
       carModel,
       year: Number(year),
@@ -65,7 +79,13 @@ export const addCar = async (req: Request): Promise<CarType> => {
     });
 
     // Save the new car to the database
-    return await newCar.save();
+    const savedCar = await newCar.save();
+
+    // add car post to user
+    username.carPosts.push(newCar._id as Types.ObjectId);
+    await username.save();
+    return savedCar;
+
   } catch (error: any) {
     throw {
       message: error.message,
@@ -89,7 +109,17 @@ export const getCarById = async (id: string): Promise<CarType | null> => {
   return car;
 };
 
-export const deleteCar = async (id: string): Promise<void> => {
+export const deleteCar = async (user: UserContext | undefined, id: string): Promise<void> => {
+  if (!user) {
+    return Promise.reject({ message: "User not found", status: 404 });
+  }
+  const creator = user._id;
+  const username = await User.findById(creator);
+
+  if (!username) {
+    return Promise.reject({ message: "User not found", status: 404 });
+  }
+
   try {
     const car = await Car.findById(id);
     if (!car) {
@@ -110,6 +140,11 @@ export const deleteCar = async (id: string): Promise<void> => {
 
     // Remove the car entry from MongoDB
     await Car.findByIdAndDelete(id);
+
+    // remove car post from user
+    username.carPosts = username.carPosts.filter((postId) => postId.toString() !== id);
+    await username.save();
+
   } catch (error: any) {
     throw {
       message: error.message || "Error deleting car",
@@ -117,3 +152,22 @@ export const deleteCar = async (id: string): Promise<void> => {
     };
   }
 };
+
+// app.post('/sell-car', authenticateUser, authorizeSellCar, (req: Request, res: Response) => {
+//     // Logic to sell a car
+//     res.status(200).json({ message: 'Car sold successfully.' });
+// });
+
+// app.delete('/delete-post/:postId', authenticateUser, (req: Request, res: Response) => {
+//     const postOwnerId = 'someOwnerId'; // Replace with actual logic to get post owner ID
+//     if (canDeletePost(req, postOwnerId)) {
+//         // Logic to delete the post
+//         res.status(200).json({ message: 'Post deleted successfully.' });
+//     } else {
+//         res.status(403).json({ message: 'Access denied. You do not have permission to delete this post.' });
+//     }
+// });
+
+// app.listen(3000, () => {
+//     console.log('Server is running on port 3000');
+// });

@@ -1,6 +1,7 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, Types } from 'mongoose';
 
 export interface ICar extends Document {
+  creator: Types.ObjectId;
   carMake: string;
   carModel: string;
   year: number;
@@ -15,6 +16,11 @@ export interface ICar extends Document {
 
 const carSchema = new Schema<ICar>(
   {
+    creator: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
     carMake: {
       type: String,
       required: true,

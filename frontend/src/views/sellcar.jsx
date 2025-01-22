@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Select from "react-select";
-import { Form, Spinner } from "react-bootstrap";
+import { Form } from "react-bootstrap";
+import { Navigate } from "react-router-dom";
+import FullScreenSpinner from "../components/fullscreen-spinner";
 import "../styles/sellcar.css";
 import ErrorPage from "./errorpage";
 
@@ -51,6 +53,7 @@ const SellCarPage = () => {
       setError(error);
     } finally {
       setIsLoading(false);
+      <Navigate to="/login" replace />
     }
   };
 
@@ -61,12 +64,7 @@ const SellCarPage = () => {
   return (
     <div className="sell-car-page">
       {isLoading ? (
-        <div className="loading-screen">
-          <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner>
-        </div>
-
+        FullScreenSpinner
       ) : (
         <>
           <header className="sell-car-header">

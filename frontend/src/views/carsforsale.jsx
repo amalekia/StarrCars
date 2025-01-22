@@ -3,8 +3,10 @@ import { Button } from "react-bootstrap";
 import "../styles/carsforsale.css";
 import { Link } from "react-router-dom";
 import { Box, Grid2, FormControl, InputLabel, MenuItem, Select as MuiSelect } from '@mui/material';
+import { useAuth } from "../auth/auth-provider";
 
 const CarsForSale = () => {
+  const { user } = useAuth();
   const [cars, setCars] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -106,36 +108,35 @@ const CarsForSale = () => {
         <p className="cars-subtitle">Find your dream car today!</p>
       </header>
       <section className="cars-section">
-      <Box className="filter-container" mb={3}>
-        <Grid2 container spacing={2} justifyContent="center">
-          <Grid2 item xs={12} sm={10} md={6}>
-            <FormControl fullWidth>
-              <InputLabel>Filter by Location</InputLabel>
-              <MuiSelect
-                value={locationFilter}
-                onChange={(event) => setLocationFilter(event.target.value)}
-                displayEmpty
-                style={{ minWidth: "350px" }}
+        <Box className="filter-container" mb={3}>
+          <Grid2 container spacing={2} justifyContent="center">
+            <Grid2 item xs={12} sm={10} md={6}>
+              <FormControl>
+                <InputLabel>Filter by Location</InputLabel>
+                <MuiSelect
+                  value={locationFilter}
+                  onChange={(event) => setLocationFilter(event.target.value)}
+                  displayEmpty
+                  style={{ minWidth: "350px" }}
+                >
+                  {options.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </MuiSelect>
+              </FormControl>
+            </Grid2>
+            <Grid2 item xs={12} sm={10} md={6}>
+              <Button
+                variant="danger"
+                onClick={() => setLocationFilter("")}
               >
-                {options.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </MuiSelect>
-            </FormControl>
+                Remove Filter
+              </Button>
+            </Grid2>
           </Grid2>
-          <Grid2 item xs={12} sm={10} md={6}>
-            <Button
-              fullWidth
-              variant="danger"
-              onClick={() => setLocationFilter("")}
-            >
-              Remove Filter
-            </Button>
-          </Grid2>
-        </Grid2>
-      </Box>
+        </Box>
 
         {loading ? (
           <div className="loading-message">Loading cars...</div>
@@ -147,8 +148,7 @@ const CarsForSale = () => {
               {cars.map((car) => (
                 <div key={car._id} className="car-item">
                   {car.images && car.images.length > 0 && (
-                    <Link
-                      to={`/viewcar/${car._id}`}>
+                    <Link to={`/viewcar/${car._id}`}>
                       <img src={car.images[0]} alt="Car" />
                     </Link>
                   )}
@@ -170,9 +170,11 @@ const CarsForSale = () => {
                   <p>
                     <strong>Price:</strong> ${car.price}
                   </p>
-                  <Button variant="secondary" onClick={() => handleDelete(car._id)}>
-                    Delete Post
-                  </Button>
+                  {user && (
+                    <Button variant="secondary" onClick={() => handleDelete(car._id)}>
+                      Delete Post
+                    </Button>
+                  )}
                 </div>
               ))}
             </div>
