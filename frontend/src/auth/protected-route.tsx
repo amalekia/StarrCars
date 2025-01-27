@@ -8,11 +8,13 @@ export const ProtectedRoute: React.FunctionComponent<
 > = ({ children }): JSX.Element => {
   const { user, loading } = useAuth();
 
-  return loading ? (
-    <FullScreenSpinner />
-  ) : user.name ? (
-    <>{children}</>
-  ) : (
-    <Navigate to="/login" replace />
-  );
+  if (loading) {
+    return <FullScreenSpinner />;
+  }
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return <>{children}</>;
 };

@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/home.css";
+import { useAuth } from "../auth/auth-provider";
+import FullScreenSpinner from "../components/fullscreen-spinner";
 
 export default function Home() {
+  const { user, loading } = useAuth();
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    if (!loading && user) {
+      setCurrentUser(user);
+    }
+  }, [loading, user]);
+
+  if (loading) {
+    return <FullScreenSpinner />;
+  }
+
   return (
     <div className="home-container">
       <header className="home-header">
-        <h1 className="home-title">Welcome to StarrCars</h1>
+        <h1 className="home-title">Welcome to StarrCars {currentUser ? `${currentUser.name}!` : ''}</h1>
         <p className="home-subtitle">Your most trusted source to buy and sell cars!</p>
       </header>
       <section className="home-section">

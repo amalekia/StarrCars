@@ -152,22 +152,3 @@ export const deleteCar = async (user: UserContext | undefined, id: string): Prom
     };
   }
 };
-
-// app.post('/sell-car', authenticateUser, authorizeSellCar, (req: Request, res: Response) => {
-//     // Logic to sell a car
-//     res.status(200).json({ message: 'Car sold successfully.' });
-// });
-
-// app.delete('/delete-post/:postId', authenticateUser, (req: Request, res: Response) => {
-//     const postOwnerId = 'someOwnerId'; // Replace with actual logic to get post owner ID
-//     if (canDeletePost(req, postOwnerId)) {
-//         // Logic to delete the post
-//         res.status(200).json({ message: 'Post deleted successfully.' });
-//     } else {
-//         res.status(403).json({ message: 'Access denied. You do not have permission to delete this post.' });
-//     }
-// });
-
-// app.listen(3000, () => {
-//     console.log('Server is running on port 3000');
-// });

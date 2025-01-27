@@ -30,9 +30,14 @@ router.post("/logout", (req, res) => {
 });
 
 router.get("/check-auth", auth, (req: AuthRequest, res) => {
-    res
-      .status(200)
-      .send({ user: { name: req.user?.name, email: req.user?.email } });
+  if (req.user) {
+    res.status(200).send({
+      authenticated: true,
+      user: { name: req.user.name, email: req.user.email },
+    });
+  } else {
+    res.status(200).send({ authenticated: false, user: null }); // No 401 response
+  }
 });
 
 export default router;

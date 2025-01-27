@@ -10,14 +10,14 @@ export type UserContext = {
   _id: string;
   name: string;
   email: string;
-};
+} | null;
 
 export interface AuthRequest extends Request {
     user?: {
         _id: string;
         name: string;
         email: string;
-    };
+    } | null;
 }
 
 export const generateToken = async (user: UserToken): Promise<string> => {
@@ -34,6 +34,12 @@ export const auth = async (
     res: Response,
     next: NextFunction
   ): Promise<void> => {
+    const token = req.cookies?.token;
+
+    if (!token) {
+      req.user = null; // Allow the request to pass without a user
+      return next();
+    }
     try {
       if (!req.cookies || !req.cookies.token) {
         res.status(401).send({ error: "Unauthorized" });
@@ -68,15 +74,6 @@ export const auth = async (
       return
     }
   };
-
-// Middleware to authorize user for selling a car
-export const authorizeSellCar = (req: AuthRequest, res: Response, next: NextFunction) => {
-    if (req.user) {
-        next();
-    } else {
-        res.status(403).json({ message: 'Access denied. You do not have permission to sell a car.' });
-    }
-};
 
 // Function to check if the user can delete a car post
 export const canDeletePost = (req: AuthRequest, postOwnerId: string): boolean => {

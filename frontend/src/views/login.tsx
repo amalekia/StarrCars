@@ -17,6 +17,7 @@ const LoginPage: React.FC = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({ email, password }),
       });
 
@@ -25,8 +26,7 @@ const LoginPage: React.FC = () => {
         setError(data.error || "Login failed");
         return;
       }
-
-      navigate("/home");
+      navigate("/");  // Redirect to home page
 
     } catch (error) {
       setError("An error occurred during login.");

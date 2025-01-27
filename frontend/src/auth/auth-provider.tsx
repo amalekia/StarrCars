@@ -3,7 +3,7 @@ import React, { useEffect, useState, createContext, useContext, JSX } from "reac
 type UserContext = {
   name: string;
   email: string;
-};
+} | null;
 
 export type AuthContext = {
   user: UserContext;
@@ -11,18 +11,14 @@ export type AuthContext = {
 };
 
 export const AuthContextValue = createContext<AuthContext>({
-  user: {
-    name: "",
-    email: "",
-  },
+  user: null,
   loading: true,
 });
 
 export const AuthProvider: React.FunctionComponent<React.PropsWithChildren> = ({
   children,
 }): JSX.Element => {
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
+  const [user, setUser] = useState<UserContext>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -30,25 +26,24 @@ export const AuthProvider: React.FunctionComponent<React.PropsWithChildren> = ({
       credentials: "include",
     })
       .then(async (res) => {
-        if (res.status === 200) {
-          const json = await res.json();
-          setName(json.user.name);
-          setEmail(json.user.email);
+        const data = await res.json();
+        if (data.authenticated) {
+          setUser({ name: data.user.name, email: data.user.email });
+        } else {
+          console.warn("User not authenticated");
+          setUser(null);
         }
         setLoading(false);
       })
       .catch((err) => {
-        console.error("Error checking authentication:", err);
+        console.error("Error during fetch:", err);
+        setUser(null);
         setLoading(false);
       });
-      
   }, []);
 
   const contextValue = {
-    user: {
-      name,
-      email,
-    },
+    user,
     loading,
   };
 
