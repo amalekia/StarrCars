@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Button, Grid, Typography, Container } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import "../styles/login.css";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -12,21 +13,25 @@ const LoginPage: React.FC = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/user/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       if (!response.ok) {
         const data = await response.json();
         setError(data.error || "Login failed");
         return;
       }
-      navigate("/");  // Redirect to home page
+
+      window.location.href = "/";
 
     } catch (error) {
       setError("An error occurred during login.");
@@ -34,54 +39,63 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <Container maxWidth="xs">
-      <Typography variant="h4" align="center" gutterBottom>
-        Login
-      </Typography>
-      <form onSubmit={handleSubmit}>
-        <Grid container spacing={2} direction="column">
-          <Grid item>
-            <TextField
-              label="Email"
-              type="email"
-              fullWidth
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </Grid>
-          <Grid item>
-            <TextField
-              label="Password"
-              type="password"
-              fullWidth
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </Grid>
-          {error && (
-            <Grid item>
-              <Typography color="error" variant="body2" align="center">
-                {error}
-              </Typography>
+    <Container className="login-container">
+      <div className="login-form">
+        <div className="login-header">
+          <Typography variant="h4">Login</Typography>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={2} direction="column">
+            <Grid item className="login-input">
+              <TextField
+                label="Email"
+                type="email"
+                fullWidth
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="MuiTextField-root"
+              />
             </Grid>
-          )}
-          <Grid item>
-            <Button type="submit" fullWidth variant="contained" color="primary">
-              Login
-            </Button>
-          </Grid>
-          <Grid item>
-            <Typography variant="body2" align="center">
-              Don't have an account?{" "}
-              <Button color="primary" onClick={() => navigate("/signup")}>
-                Sign up here
+            <Grid item className="login-input">
+              <TextField
+                label="Password"
+                type="password"
+                fullWidth
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="MuiTextField-root"
+              />
+            </Grid>
+            {error && (
+              <Grid item>
+                <Typography className="error-message">{error}</Typography>
+              </Grid>
+            )}
+            <Grid item>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                className="login-button"
+              >
+                Login
               </Button>
-            </Typography>
+            </Grid>
+            <Grid item>
+              <div className="signup-link">
+                <Typography variant="body2">
+                  Don't have an account?{" "}
+                  <button onClick={() => navigate("/signup")}>
+                    Sign up here
+                  </button>
+                </Typography>
+              </div>
+            </Grid>
           </Grid>
-        </Grid>
-      </form>
+        </form>
+      </div>
     </Container>
   );
 };

@@ -8,11 +8,13 @@ type UserContext = {
 export type AuthContext = {
   user: UserContext;
   loading: boolean;
+  setUser: (user: UserContext) => void;
 };
 
 export const AuthContextValue = createContext<AuthContext>({
   user: null,
   loading: true,
+  setUser: () => {},
 });
 
 export const AuthProvider: React.FunctionComponent<React.PropsWithChildren> = ({
@@ -22,6 +24,7 @@ export const AuthProvider: React.FunctionComponent<React.PropsWithChildren> = ({
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    setLoading(true);
     fetch(`${process.env.REACT_APP_SERVER_URL}/user/check-auth`, {
       credentials: "include",
     })
@@ -45,6 +48,7 @@ export const AuthProvider: React.FunctionComponent<React.PropsWithChildren> = ({
   const contextValue = {
     user,
     loading,
+    setUser,
   };
 
   return (

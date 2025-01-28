@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <div className="home-container">
       <header className="home-header">
-        <h1 className="home-title">Welcome to StarrCars {currentUser ? `${currentUser.name}!` : ''}</h1>
+        <h1 className="home-title">Welcome to StarrCars{currentUser ? `, ${currentUser.name}!` : '!'}</h1>
         <p className="home-subtitle">Your most trusted source to buy and sell cars!</p>
       </header>
       <section className="home-section">
