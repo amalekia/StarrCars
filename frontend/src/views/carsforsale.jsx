@@ -81,6 +81,7 @@ const CarsForSale = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({ userId: user._id }),
       })
         .then((response) => {
           if (!response.ok) {
@@ -110,7 +111,7 @@ const CarsForSale = () => {
       <section className="cars-section">
         <Box className="filter-container" mb={3}>
           <Grid2 container spacing={2} justifyContent="center">
-            <Grid2 item xs={12} sm={10} md={6}>
+            <Grid2 xs={12} sm={10} md={6}>
               <FormControl>
                 <InputLabel>Filter by Location</InputLabel>
                 <MuiSelect
@@ -127,7 +128,7 @@ const CarsForSale = () => {
                 </MuiSelect>
               </FormControl>
             </Grid2>
-            <Grid2 item xs={12} sm={10} md={6}>
+            <Grid2 xs={12} sm={10} md={6}>
               <Button
                 variant="danger"
                 onClick={() => setLocationFilter("")}

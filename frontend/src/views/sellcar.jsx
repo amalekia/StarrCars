@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import Select from "react-select";
 import { Form } from "react-bootstrap";
-import { Navigate } from "react-router-dom";
 import FullScreenSpinner from "../components/fullscreen-spinner";
 import "../styles/sellcar.css";
 import ErrorPage from "./errorpage";
+import {useAuth} from "../auth/auth-provider";
 
 const SellCarPage = () => {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { user } = useAuth();
+
+  console.log("User:", user);
 
   const options = [
     { value: "bakersfield", label: "Bakersfield" },
@@ -32,9 +36,12 @@ const SellCarPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+  
     setIsLoading(true);
+  
     const formData = new FormData(event.target);
-    formData.append("location", selectedLocation.value);
+    formData.append("location", selectedLocation?.value || "");
+    formData.append("creator", user._id);
   
     try {
       const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/cars/sellcar`, {
@@ -45,18 +52,18 @@ const SellCarPage = () => {
       if (!response.ok) {
         throw new Error("Failed to upload car details.");
       }
+  
       const data = await response.json();
       console.log("Car uploaded successfully:", data);
-      // Redirect to the updated cars for sale page
+      window.location.href = "/carsforsale";
     } catch (error) {
       console.error("Error uploading car:", error);
       setError(error);
     } finally {
       setIsLoading(false);
-      <Navigate to="/login" replace />
     }
   };
-
+  
   if (error) {
     return <ErrorPage />;
   }
@@ -64,7 +71,7 @@ const SellCarPage = () => {
   return (
     <div className="sell-car-page">
       {isLoading ? (
-        FullScreenSpinner
+        <FullScreenSpinner />
       ) : (
         <>
           <header className="sell-car-header">

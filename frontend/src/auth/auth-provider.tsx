@@ -1,6 +1,7 @@
 import React, { useEffect, useState, createContext, useContext, JSX } from "react";
 
 type UserContext = {
+  _id: string;
   name: string;
   email: string;
 } | null;
@@ -31,9 +32,8 @@ export const AuthProvider: React.FunctionComponent<React.PropsWithChildren> = ({
       .then(async (res) => {
         const data = await res.json();
         if (data.authenticated) {
-          setUser({ name: data.user.name, email: data.user.email });
+          setUser({ _id: data.user._id, name: data.user.name, email: data.user.email });
         } else {
-          console.warn("User not authenticated");
           setUser(null);
         }
         setLoading(false);

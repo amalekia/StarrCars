@@ -47,12 +47,8 @@ export const getCars = async (): Promise<CarType[]> => {
   return cars;
 };
 
-export const addCar = async (req: Request, user: UserContext | undefined): Promise<CarType> => {
-  if (!user) {
-    return Promise.reject({ message: "User not found", status: 404 });
-  }
-  const creator = user._id;
-  const username = await User.findById(creator);
+export const addCar = async (req: Request): Promise<CarType> => {
+  const username = await User.findById(req.body.creator);
 
   if (!username) {
     return Promise.reject({ message: "User not found", status: 404 });
@@ -62,7 +58,7 @@ export const addCar = async (req: Request, user: UserContext | undefined): Promi
     const imageUrls: string[] = req.files ? (req.files as Express.Multer.File[]).map((file: any) => file.path) : [];
     req.body.images = imageUrls;
 
-    const { carMake, carModel, year, price, mileage, location, contactCell, contactEmail, description } = req.body;
+    const { creator, carMake, carModel, year, price, mileage, location, contactCell, contactEmail, description } = req.body;
 
     const newCar = new Car({
       creator,
@@ -89,7 +85,7 @@ export const addCar = async (req: Request, user: UserContext | undefined): Promi
   } catch (error: any) {
     throw {
       message: error.message,
-      status: 400, // Or another appropriate status code
+      status: 400,
     };
   }
 };
@@ -109,11 +105,10 @@ export const getCarById = async (id: string): Promise<CarType | null> => {
   return car;
 };
 
-export const deleteCar = async (user: UserContext | undefined, id: string): Promise<void> => {
-  if (!user) {
+export const deleteCar = async (creator: Types.ObjectId, id: string): Promise<void> => {
+  if (!creator) {
     return Promise.reject({ message: "User not found", status: 404 });
   }
-  const creator = user._id;
   const username = await User.findById(creator);
 
   if (!username) {

@@ -33,7 +33,7 @@ router.get("/check-auth", auth, (req: AuthRequest, res) => {
   if (req.user) {
     res.status(200).send({
       authenticated: true,
-      user: { name: req.user.name, email: req.user.email },
+      user: { _id: req.user._id, name: req.user.name, email: req.user.email },
     });
   } else {
     res.status(200).send({ authenticated: false, user: null }); // No 401 response

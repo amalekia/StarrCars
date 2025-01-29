@@ -31,9 +31,9 @@ router.get("/", async (req: Request, res: Response) => {
 });
 
 // Sell your car (create a new car listing)
-router.post("/sellcar", auth, upload, async (authreq: AuthRequest, req: Request, res: Response) => {
+router.post("/sellcar", upload, async (req: Request, res: Response) => {
   try {
-    const newCar = await addCar(req, authreq.user);
+    const newCar = await addCar(req);
     res.status(201).json(newCar);
   } catch (error) {
     const err = error as { status?: number; message?: string };
@@ -42,8 +42,8 @@ router.post("/sellcar", auth, upload, async (authreq: AuthRequest, req: Request,
 });
 
 // Delete car by id
-router.delete("/:id", auth, async (authreq: AuthRequest, req: Request, res: Response) => {
-  deleteCar(authreq.user, req.params.id)
+router.delete("/:id", async (req: Request, res: Response) => {
+  deleteCar(req.body.userId, req.params.id) 
     .then(() => res.status(204).send())
     .catch((error) =>
       res.status(error.status).json({ message: error.message })
