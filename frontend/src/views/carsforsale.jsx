@@ -171,7 +171,7 @@ const CarsForSale = () => {
                   <p>
                     <strong>Price:</strong> ${car.price}
                   </p>
-                  {user && (
+                  {user._id === car.creator && (
                     <Button variant="secondary" onClick={() => handleDelete(car._id)}>
                       Delete Post
                     </Button>

@@ -13,8 +13,6 @@ const SellCarPage = () => {
 
   const { user } = useAuth();
 
-  console.log("User:", user);
-
   const options = [
     { value: "bakersfield", label: "Bakersfield" },
     { value: "chico", label: "Chico" },

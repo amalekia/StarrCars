@@ -8,7 +8,6 @@ import {
   getCarById,
   upload,
 } from "../services/cars-services";
-import { auth, AuthRequest } from "../util/auth";
 
 const router = express.Router();
 
