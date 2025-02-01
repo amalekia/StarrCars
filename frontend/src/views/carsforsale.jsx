@@ -109,6 +109,13 @@ const CarsForSale = () => {
         <p className="cars-subtitle">Find your dream car today!</p>
       </header>
       <section className="cars-section">
+        {user && (
+          <Box mb={3} display="flex" justifyContent="center">
+            <Button className="view-your-cars-button" variant="primary" as={Link} to="/userPosts">
+              View Your Listings
+            </Button>
+          </Box>
+        )}
         <Box className="filter-container" mb={3}>
           <Grid2 container spacing={2} justifyContent="center">
             <Grid2 xs={12} sm={10} md={6}>

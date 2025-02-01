@@ -13,6 +13,7 @@ import ViewCarPage from "./views/viewcar";
 import AIAssistant from "./views/aiassistant";
 import LoginPage from "./views/login";
 import SignUpPage from "./views/signup";
+import UserCarPosts from "./views/userPosts";
 import { AuthProvider } from "./auth/auth-provider";
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
             <Route path="/aiassistant" element={<AIAssistant />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/userPosts" element={<ProtectedRoute><UserCarPosts /></ProtectedRoute>}/>
           </Routes>
           <Footer />
         </div>

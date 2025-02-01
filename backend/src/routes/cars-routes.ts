@@ -6,8 +6,10 @@ import {
   deleteCar,
   getCarsByMakeAndModel,
   getCarById,
+  getCarsByUserId,
   upload,
 } from "../services/cars-services";
+import { auth, AuthRequest } from "../util/auth";
 
 const router = express.Router();
 
@@ -69,5 +71,22 @@ router.get("/:id", async (req: Request, res: Response) => {
       res.status(error.status).json({ message: error.message })
     );
 });
+
+router.post("/user-car-posts", auth, async (req: AuthRequest, res: Response) => {
+  try {
+    const { userId } = req.body;
+
+    if (!userId) {
+      res.status(400).json({ message: "User ID is required." });
+    }
+
+    const carPosts = await getCarsByUserId(userId);
+    res.status(200).json(carPosts);
+  } catch (error) {
+    console.error("Error fetching user car posts:", error);
+    res.status(500).json({ message: "Failed to fetch car posts." });
+  }
+});
+
 
 export default router;

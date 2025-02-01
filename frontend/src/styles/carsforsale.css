@@ -131,6 +131,23 @@
   color: white;
 }
 
+/* View Your Cars Button */
+.view-your-cars-button {
+  background-color: #1e2a78; /* Daytona blue */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.view-your-cars-button:hover {
+  background-color: #16205a; /* Darker shade of Daytona blue */
+  transform: scale(1.05);
+}
+
 /* Loading Message */
 .loading-message {
   text-align: center;

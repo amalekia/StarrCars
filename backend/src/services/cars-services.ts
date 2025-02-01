@@ -105,6 +105,10 @@ export const getCarById = async (id: string): Promise<CarType | null> => {
   return car;
 };
 
+export const getCarsByUserId = async (userId: string): Promise<CarType[]> => {
+  return await Car.find({ creator: userId });
+};
+
 export const deleteCar = async (creator: Types.ObjectId, id: string): Promise<void> => {
   if (!creator) {
     return Promise.reject({ message: "User not found", status: 404 });
