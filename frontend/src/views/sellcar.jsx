@@ -38,6 +38,8 @@ const SellCarPage = () => {
     setIsLoading(true);
   
     const formData = new FormData(event.target);
+    formData.set("carMake", formData.get("carMake").charAt(0).toUpperCase() + formData.get("carMake").slice(1));
+    formData.set("carModel", formData.get("carModel").charAt(0).toUpperCase() + formData.get("carModel").slice(1));
     formData.append("location", selectedLocation?.value || "");
     formData.append("creator", user._id);
   
@@ -94,6 +96,10 @@ const SellCarPage = () => {
                 <Form.Label>Model</Form.Label>
                 <Form.Control type="text" name="carModel" required />
               </Form.Group>
+              <Form.Group controlId="color">
+                <Form.Label>Color</Form.Label>
+                <Form.Control type="text" name="color" required />
+              </Form.Group>
               <Form.Group controlId="year">
                 <Form.Label>Year</Form.Label>
                 <Form.Control
@@ -145,7 +151,7 @@ const SellCarPage = () => {
                   type="tel"
                   name="contactCell"
                   pattern="[0-9]{10}"
-                  title="Enter a 10-digit phone number"
+                  title="Enter a 10-digit phone number without dashes or spaces"
                   required
                 />
               </Form.Group>

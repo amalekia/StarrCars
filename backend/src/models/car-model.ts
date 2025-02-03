@@ -4,6 +4,7 @@ export interface ICar extends Document {
   creator: Types.ObjectId;
   carMake: string;
   carModel: string;
+  color: string;
   year: number;
   price: number;
   mileage: number;
@@ -26,6 +27,10 @@ const carSchema = new Schema<ICar>(
       required: true,
     },
     carModel: {
+      type: String,
+      required: true,
+    },
+    color: {
       type: String,
       required: true,
     },

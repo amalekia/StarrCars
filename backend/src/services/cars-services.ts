@@ -32,6 +32,7 @@ interface CarType {
   creator: Types.ObjectId;
   carMake: string;
   carModel: string;
+  color: string;
   year: number;
   price: number;
   mileage: number;
@@ -58,12 +59,13 @@ export const addCar = async (req: Request): Promise<CarType> => {
     const imageUrls: string[] = req.files ? (req.files as Express.Multer.File[]).map((file: any) => file.path) : [];
     req.body.images = imageUrls;
 
-    const { creator, carMake, carModel, year, price, mileage, location, contactCell, contactEmail, description } = req.body;
+    const { creator, carMake, carModel, color, year, price, mileage, location, contactCell, contactEmail, description } = req.body;
 
     const newCar = new Car({
       creator,
       carMake,
       carModel,
+      color,
       year: Number(year),
       price: Number(price),
       mileage: Number(mileage),
