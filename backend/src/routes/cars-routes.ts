@@ -10,6 +10,7 @@ import {
   upload,
 } from "../services/cars-services";
 import { auth, AuthRequest } from "../util/auth";
+import { main as carCategorizerMain } from "../services/car_categorizer";
 
 const router = express.Router();
 
@@ -88,5 +89,19 @@ router.post("/user-car-posts", auth, async (req: AuthRequest, res: Response) => 
   }
 });
 
+router.post("/car-price-estimate", async (req: Request, res: Response) => {
+  const { make, model, year, color,  } = req.body;
+
+  try {
+    const car = await getCarsByMakeAndModel(make, model);
+    if (!car) {
+      return res.status(404).json({ message: "Car not found" });
+    }
+    const priceEstimate = Math.floor(Math.random() * (10000 - 5000 + 1)) + 5000;
+    res.status(200).json({ estimatedPrice: priceEstimate });
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
 
 export default router;

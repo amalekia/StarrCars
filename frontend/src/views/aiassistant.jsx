@@ -40,7 +40,7 @@ export default function AIAssistant() {
                     <TextField id="make" label="Make" variant="filled" className="MuiTextField-root" />
                     <TextField id="model" label="Model" variant="filled" className="MuiTextField-root" />
                     <TextField id="year" label="Year" variant="filled" className="MuiTextField-root" />
-                    <TextField id="length" label="Length" variant="filled" className="MuiTextField-root" />
+                    <TextField id="color" label="Color" variant="filled" className="MuiTextField-root" />
                     <TextField id="fuel-economy" label="Fuel Economy" variant="filled" className="MuiTextField-root" />
                     <TextField id="mileage" label="Mileage" variant="filled" className="MuiTextField-root" />
                     <TextField id="condition" label="Condition" variant="filled" className="MuiTextField-root" />
