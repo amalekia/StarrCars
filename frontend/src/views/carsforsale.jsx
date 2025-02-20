@@ -176,6 +176,9 @@ const CarsForSale = () => {
                     <strong>Location:</strong> {car.location}
                   </p>
                   <p>
+                    <strong>Color:</strong> ${car.color}
+                  </p>
+                  <p>
                     <strong>Price:</strong> ${car.price}
                   </p>
                   {user && user._id === car.creator && (

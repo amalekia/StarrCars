@@ -5,7 +5,7 @@ import "dotenv/config";
 import cookieParser from "cookie-parser";
 import carsRouter from "./routes/cars-routes";
 import userRouter from "./routes/user-routes";
-
+import mlRouter from './routes/mlRoutes';
 
 const app = express();
 
@@ -39,6 +39,7 @@ app.get("/", (req, res) => {
 
 app.use("/cars", carsRouter);
 app.use("/user", userRouter);
+app.use('/predictor', mlRouter);
 
 //running the server
 app.listen(process.env.PORT, () => {
