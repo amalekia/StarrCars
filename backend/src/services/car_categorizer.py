@@ -11,7 +11,6 @@ from joblib import dump, load
 import requests
 import io
 import os
-from scipy.sparse import vstack
 
 def save_model(model, filename):
     dump(model, filename)
@@ -25,15 +24,15 @@ def load_or_train_model(sample_size=10000):
     knn = load_model('knn.joblib')
     
     if scaler and kmeans and knn:
-        return None, scaler, kmeans, knn
+        return scaler, kmeans, knn
     
-    df, scaler, kmeans, knn = train_models(sample_size)
+    scaler, kmeans, knn = train_models(sample_size)
     
     save_model(scaler, 'scaler.joblib')
     save_model(kmeans, 'kmeans.joblib')
     save_model(knn, 'knn.joblib')
     
-    return df, scaler, kmeans, knn
+    return scaler, kmeans, knn
 
 def train_models(sample_size):
     url = "https://media.githubusercontent.com/media/amalekia/StarrCars/refs/tags/v0.1.0/backend/src/data/cars.csv"
@@ -59,16 +58,14 @@ def train_models(sample_size):
     knn = NearestNeighbors(n_neighbors=10)
     knn.fit(X_scaled)
     
-    return df_sample, scaler, kmeans, knn
+    return scaler, kmeans, knn
 
-def categorize_car_kmeans(scaler, kmeans, make, model, year, mileage, fuel_economy_city, fuel_economy_highway, horsepower):
-    car_features = np.array([[year, mileage, fuel_economy_city, fuel_economy_highway, horsepower]])
+def categorize_car_kmeans(scaler, kmeans, car_features):
     car_features_sparse = csr_matrix(car_features)
     car_features_scaled = scaler.transform(car_features_sparse)
     return kmeans.predict(car_features_scaled)[0]
 
-def predict_price_range(df, scaler, knn, new_car):
-    car_features = np.array([[new_car['year'], new_car['mileage'], new_car['city_fuel_economy'], new_car['highway_fuel_economy'], new_car['horsepower']]])
+def predict_price_range(df, scaler, knn, car_features):
     car_features_sparse = csr_matrix(car_features)
     car_features_scaled = scaler.transform(car_features_sparse)
     distances, indices = knn.kneighbors(car_features_scaled)
@@ -77,38 +74,41 @@ def predict_price_range(df, scaler, knn, new_car):
     return avg_price - 1000, avg_price + 1000
 
 def car_categorizer(df, scaler, kmeans, knn, car_data):
-    cluster = categorize_car_kmeans(scaler, kmeans, car_data['make_name'], car_data['model_name'], car_data['year'], car_data['mileage'], car_data['city_fuel_economy'], car_data['highway_fuel_economy'], car_data['horsepower'])
-    df['cluster'] = kmeans.labels_
-    cluster_avg_price = df[df['cluster'] == cluster]['price'].mean()
-    price_range_lower, price_range_upper = predict_price_range(df, scaler, knn, car_data)
-    return {"average_price": cluster_avg_price, "lower_bound": price_range_lower, "upper_bound": price_range_upper}
+    car_features = np.array([[car_data['year'], car_data['mileage'], car_data['city_fuel_economy'], car_data['highway_fuel_economy'], car_data['horsepower']]])
+    
+    # Predict cluster
+    cluster = categorize_car_kmeans(scaler, kmeans, car_features)
+    
+    # Sample the dataset (must match KMeans training set)
+    df_sample = df.sample(n=min(10000, len(df)), random_state=42)
+    df_sample['cluster'] = kmeans.labels_
+    
+    # Compute cluster's average price
+    cluster_avg_price = df_sample[df_sample['cluster'] == cluster]['price'].mean()
+    
+    # Predict price range
+    price_range_lower, price_range_upper = predict_price_range(df_sample, scaler, knn, car_features)
+    
+    return {
+        "average_price": cluster_avg_price, 
+        "lower_bound": price_range_lower, 
+        "upper_bound": price_range_upper
+    }
 
-def load_pretrained_models():
-    try:
-        scaler = load('scaler.joblib')
-        kmeans = load('kmeans.joblib')
-        knn = load('knn.joblib')
-        if not scaler or not kmeans or not knn:
-            raise ValueError("One or more models are missing or corrupted")
-        return scaler, kmeans, knn
-    except Exception as e:
-        print(f"Error loading models: {e}")
-        return None, None, None
-
+def load_dataset():
+    url = "https://media.githubusercontent.com/media/amalekia/StarrCars/refs/tags/v0.1.0/backend/src/data/cars.csv"
+    df = pd.read_csv(url)
+    df.dropna(inplace=True)
+    df = pd.get_dummies(df, columns=['make_name', 'model_name'])
+    df['price'] = df['price'].astype(float)  # Ensure 'price' column exists
+    return df
 
 if __name__ == "__main__":
-    try:
-        scaler, kmeans, knn = load_pretrained_models()
-        df = pd.read_csv("https://media.githubusercontent.com/media/amalekia/StarrCars/refs/tags/v0.1.0/backend/src/data/cars.csv")
-        df.dropna(inplace=True)
-        df = pd.get_dummies(df, columns=['make_name', 'model_name'])
-        df['price'] = df['price'].astype(float)  # Ensure 'price' column exists
-    except FileNotFoundError:
-        df, scaler, kmeans, knn = load_or_train_model()
-
+    scaler, kmeans, knn = load_or_train_model()
+    df = load_dataset()
+    
     car_data = json.loads(sys.stdin.read())
     result = car_categorizer(df, scaler, kmeans, knn, car_data)
     print(json.dumps(result))
     sys.stdout.flush()
     sys.exit(0)
-
