@@ -3,53 +3,47 @@ import { spawn } from 'child_process';
 
 const router = express.Router();
 
-router.post('/predict-car-price', (req: Request, res: Response) => {
-    const carData = req.body;
-
-    console.log("Received carData in Express:", carData); // Debugging
-
-    if (!carData || typeof carData !== 'object') {
-        res.status(400).json({ error: "Invalid request data. Expected JSON object." });
-    }
-
-    // Spawn the Python process
-    const pythonProcess = spawn('python3', ['src/services/car_categorizer.py']);
-
-    // Convert JSON object to a properly formatted string and send it
-    const jsonString = JSON.stringify(carData) + '\n'; 
-    pythonProcess.stdin.write(jsonString);
-    pythonProcess.stdin.end();
-
-    console.log("Sent to Python:", jsonString); // Debugging
-
-    let result = '';
-
-    // Collect data from Python stdout
-    pythonProcess.stdout.on('data', (data) => {
+router.post("/predict-car-price", async (req, res) => {
+    try {
+      const carData = req.body;
+  
+      const formattedCarData = {
+        make_name: carData.make,
+        model_name: carData.model,
+        year: Number(carData.year),
+        horsepower: Number(carData.horsepower),
+        city_fuel_economy: Number(carData.city_fuel_economy),
+        highway_fuel_economy: Number(carData.highway_fuel_economy),
+        mileage: Number(carData.mileage),
+      };
+      
+      console.log("Formatted car data (before sending to Python):", JSON.stringify(formattedCarData, null, 2));
+      
+      const pythonProcess = spawn("python3", ["../backend/src/services/car_categorizer.py"]);
+      
+      pythonProcess.stdin.write(JSON.stringify(formattedCarData) + "\n");
+      pythonProcess.stdin.end();
+  
+      let result = "";
+      pythonProcess.stdout.on("data", (data) => {
         result += data.toString();
-    });
-
-    // Handle completion of the Python process
-    pythonProcess.on('close', () => {
-        console.log("Raw output from Python:", result.trim()); // Debugging
-
-        try {
-            const jsonResponse = JSON.parse(result.trim());  
-            res.json(jsonResponse);
-        } catch (error) {
-            console.error('JSON Parse Error:', error);
-            res.status(500).json({ error: 'Failed to parse Python output.' });
+      });
+  
+      pythonProcess.stderr.on("data", (data) => {
+        console.error("Python stderr:", data.toString());
+      });
+  
+      pythonProcess.on("close", (code) => {
+        if (code === 0) {
+          res.json(JSON.parse(result));
+        } else {
+          res.status(500).json({ error: "Python script failed" });
         }
-    });
-
-    pythonProcess.stderr.on('data', (data) => {
-        console.error('Python stderr:', data.toString());
-    });
-
-    pythonProcess.on('error', (error) => {
-        console.error('Python process error:', error);
-        res.status(500).json({ error: 'Internal server error from Python process' });
-    });
-});
+      });
+    } catch (error) {
+      console.error("Error in Express route:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
 
 export default router;

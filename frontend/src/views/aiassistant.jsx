@@ -13,33 +13,40 @@ export default function AIAssistant() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         setLoading(true);
+    
         fetch(`${process.env.REACT_APP_SERVER_URL}/predictor/predict-car-price`, {
             method: 'POST',
             headers: {
-            'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 make: event.target.make.value,
                 model: event.target.model.value,
-                year: event.target.year.value,
-                horsepower: event.target.horsepower.value,
-                fuelEconomyCity: event.target['fuel-economy-city'].value,
-                fuelEconomyHighway: event.target['fuel-economy-highway'].value,
-                mileage: event.target.mileage.value,
+                year: parseInt(event.target.year.value, 10),
+                horsepower: parseInt(event.target.horsepower.value, 10),
+                city_fuel_economy: parseInt(event.target['fuel-economy-city'].value, 10),
+                highway_fuel_economy: parseInt(event.target['fuel-economy-highway'].value, 10),
+                mileage: parseInt(event.target.mileage.value, 10),
             }),
         })
         .then((response) => response.json())
         .then((data) => {
-            setAvgPrice(data.avg_price);
-            setLowerBound(data.lower_bound);
-            setUpperBound(data.upper_bound);
+            console.log("Response from backend:", data); // Debugging line
+    
+            if (data.average_price && data.lower_bound && data.upper_bound) {
+                setAvgPrice(data.average_price);
+                setLowerBound(data.lower_bound);
+                setUpperBound(data.upper_bound);
+            } else {
+                console.error("Unexpected response structure:", data);
+            }
             setLoading(false);
         })
         .catch((error) => {
             console.error('Error:', error);
             setLoading(false);
         });
-    };
+    };    
 
     return (
         <div className="ai-assistant-container">
