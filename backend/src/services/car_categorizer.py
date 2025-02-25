@@ -69,7 +69,7 @@ def load_or_train_models(df, sample_size=10000):
     X_scaled = scaler.fit_transform(X_sample)
     
     optimal_k = find_optimal_k(X_scaled)
-    kmeans = MiniBatchKMeans(n_clusters=optimal_k, random_state=42, batch_size=100)
+    kmeans = MiniBatchKMeans(n_clusters=optimal_k, random_state=42, batch_size=1000)
     kmeans.fit(X_scaled)
     
     knn = NearestNeighbors(n_neighbors=10)
@@ -103,7 +103,12 @@ def car_categorizer(df, scaler, kmeans, knn, car_data):
         df_sample['cluster'] = kmeans.labels_
         cluster_avg_price = df_sample[df_sample['cluster'] == cluster]['price'].mean()
         price_range_lower, price_range_upper = predict_price_range(df_sample, scaler, knn, car_features)
-        return {"average_price": cluster_avg_price, "lower_bound": price_range_lower, "upper_bound": price_range_upper}
+        return {
+            "average_price": round(cluster_avg_price, 2),
+            "lower_bound": round(price_range_lower, 2),
+            "upper_bound": round(price_range_upper, 2)
+        }
+
     except Exception as e:
         print(f"Error processing car data: {e}", file=sys.stderr)
         return {"error": "Invalid input data"}
