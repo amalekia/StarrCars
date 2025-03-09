@@ -92,11 +92,10 @@ def find_best_k_knn(X_transformed, y_sample):
     best_k = None
     best_score = float('-inf')
     
-    # Try different values of k (e.g., from 1 to 20)
     for k in range(1, 21):
         knn = KNeighborsRegressor(n_neighbors=k)
         
-        # Perform cross-validation (we use negative mean squared error)
+        # Perform cross-validation
         scores = cross_val_score(knn, X_transformed, y_sample, cv=5, scoring='neg_mean_squared_error')
         
         # Average the cross-validation scores
@@ -113,7 +112,7 @@ def find_best_k_knn(X_transformed, y_sample):
 def find_optimal_k(X_scaled):
     silhouette_scores = []
     distortions = []
-    K_range = range(2, 11)  # Start from k=2 since k=1 is trivial
+    K_range = range(2, 11)
     for k in K_range:
         kmeans = MiniBatchKMeans(n_clusters=k, random_state=42, batch_size=1000)
         kmeans.fit(X_scaled)
@@ -257,10 +256,9 @@ def car_categorizer(df, ct, kmeans, knn, car_data):
 
         # Ensure ColumnTransformer is fitted
         if not hasattr(ct, 'transform') or not hasattr(ct, 'fit_transform'):
-            # Fit the ColumnTransformer if not already fitted (this is just a safeguard)
             categorical_cols = [col for col in df.columns if col.startswith('make_name') or col.startswith('model_name')]
             numerical_cols = ['year', 'mileage', 'city_fuel_economy', 'highway_fuel_economy', 'horsepower']
-            ct.fit(df[categorical_cols + numerical_cols])  # Fit the transformer if not fitted
+            ct.fit(df[categorical_cols + numerical_cols])
 
         # Convert input to numpy array
         car_features_transformed = ct.transform(car_features_encoded)

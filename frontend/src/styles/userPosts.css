@@ -1,123 +1,121 @@
 .user-car-posts {
-    font-family: "Arial", sans-serif;
-    padding: 50px;
-    background: linear-gradient(to left, #5b9bd0, #c0c0c0); /* Daytona blue to light grey */
-  }
+  font-family: "Arial", sans-serif;
+  padding: 50px;
+  background: linear-gradient(to left, #5b9bd0, #c0c0c0);
+}
 
 .user-car-posts-container {
-    font-family: "Arial", sans-serif;
-    background: linear-gradient(to left, #5b9bd0, #c0c0c0); /* Daytona blue to light grey */
-    color: #1e2a78;
-    padding: 50px;
-    min-height: 100vh;
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(1, 1fr);
-  }
+  font-family: "Arial", sans-serif;
+  background: linear-gradient(to left, #5b9bd0, #c0c0c0);
+  color: #1e2a78;
+  padding: 50px;
+  min-height: 100vh;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(1, 1fr);
+}
   
-  .user-car-posts-title {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #1e2a78;
-    text-align: center;
-    margin-bottom: 1.5rem;
-  }
+.user-car-posts-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #1e2a78;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
   
-  @media (min-width: 768px) {
-    .user-car-posts-container {
-      grid-template-columns: repeat(2, 1fr);
-    }
+@media (min-width: 768px) {
+  .user-car-posts-container {
+    grid-template-columns: repeat(2, 1fr);
   }
+}
   
-  @media (min-width: 1024px) {
-    .user-car-posts-container {
-      grid-template-columns: repeat(3, 1fr);
-    }
+@media (min-width: 1024px) {
+  .user-car-posts-container {
+    grid-template-columns: repeat(3, 1fr);
   }
+}
   
 .car-card {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    max-height: 500px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  max-height: 500px;
 }
 
 .car-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 
 .car-card-image-container {
-    position: relative;
-    background-color: #f1f5f9;
-    width: 100%;
-    height: 200px; /* Reduced height */
+  position: relative;
+  background-color: #f1f5f9;
+  width: 100%;
+  height: 200px;
 }
 
 .car-card-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-    border-bottom: 2px solid #e2e8f0;
-    transition: transform 0.3s ease-in-out;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  border-bottom: 2px solid #e2e8f0;
+  transition: transform 0.3s ease-in-out;
 }
 
 .car-card-image:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .car-card-content {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1; /* Added to ensure content fills the remaining space */
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .car-card-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #1e2a78;
-    margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e2a78;
+  margin-bottom: 0.5rem;
 }
 
 .car-card-description {
-    color: #333;
-    margin-top: 0.5rem;
-    flex-grow: 1; /* Added to ensure description fills the remaining space */
+  color: #333;
+  margin-top: 0.5rem;
+  flex-grow: 1;
 }
   
-  .delete-button {
-    background-color: #1e2a78;
-    color: white;
-    border: none;
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-    margin-top: 1rem;
-    width: 100%;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.delete-button {
+  background-color: #1e2a78;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  width: 100%;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+  
+.delete-button:hover {
+  background-color: #16235b;
+}
+  
+@media (max-width: 768px) {
+  .user-car-posts-title {
+    font-size: 2.2rem;
   }
   
-  .delete-button:hover {
-    background-color: #16235b;
+  .car-card-image-container {
+    height: 160px;
   }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .user-car-posts-title {
-      font-size: 2.2rem;
-    }
-  
-    .car-card-image-container {
-      height: 160px;
-    }
-  }
-  
+}

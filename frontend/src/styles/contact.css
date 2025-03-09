@@ -1,77 +1,77 @@
 .contactpage {
-    max-width: 900px; /* Center content */
-    margin: 50px auto; /* Add spacing from top and center horizontally */
-    padding: 40px 20px; /* Balanced padding for all screen sizes */
-    background: linear-gradient(to right, #f0f4ff, #ffffff); /* Clean white background for content focus */
+    max-width: 900px; 
+    margin: 50px auto; 
+    padding: 40px 20px; 
+    background: linear-gradient(to right, #f0f4ff, #ffffff); 
     border-radius: 10px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Subtle shadow for a modern card look */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); 
     text-align: center;
 }
 
 .contactpage h1 {
-    color: #002366; /* Daytona blue for main title */
-    font-size: 2.5rem; /* Larger font for emphasis */
+    color: #002366; 
+    font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
 .contactpage p {
-    color: #333333; /* Dark grey for text */
-    font-size: 1.125rem; /* Comfortable font size for readability */
-    line-height: 1.8; /* Add breathing room between lines */
-    margin-bottom: 20px; /* Separate paragraphs for clarity */
+    color: #333333; 
+    font-size: 1.125rem;
+    line-height: 1.8; 
+    margin-bottom: 20px; 
 }
 
 .contactpage a {
-    display: inline-block; /* Gives a button-like appearance */
-    color: #002366; /* Daytona blue */
+    display: inline-block; 
+    color: #002366;
     font-weight: bold;
     font-size: 1.125rem;
     text-decoration: none;
     margin-top: 20px;
-    padding: 10px 20px; /* Padding to create a button feel */
-    border: 2px solid #002366; /* Adds a border for button-like styling */
-    border-radius: 5px; /* Rounded corners for smooth design */
-    transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+    padding: 10px 20px; 
+    border: 2px solid #002366; 
+    border-radius: 5px; 
+    transition: all 0.3s ease-in-out; 
 }
 
 .contactpage a:hover {
-    background-color: #002366; /* Daytona blue fill on hover */
-    color: #ffffff; /* White text for contrast */
+    background-color: #002366; 
+    color: #ffffff; 
     text-decoration: none;
 }
 
 .contactpage a:active {
-    background-color: #001a4d; /* Darker Daytona blue for active state */
+    background-color: #001a4d; 
     color: #ffffff;
 }
 
 .contact-image {
     width: 200px; 
     height: 200px; 
-    border-radius: 50%; /* Make the image circular */
-    border: 3px solid #002366; /* Daytona blue border */
-    margin-bottom: 20px; /* Add space between image and text */
-    object-fit: cover; /* Ensure the image scales nicely */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    border-radius: 50%; 
+    border: 3px solid #002366; 
+    margin-bottom: 20px;
+    object-fit: cover; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
     .contactpage {
-        padding: 20px; /* Reduce padding on smaller screens */
+        padding: 20px; 
     }
 
     .contactpage h1 {
-        font-size: 2rem; /* Adjust title size for small screens */
+        font-size: 2rem; 
     }
 
     .contactpage p {
-        font-size: 1rem; /* Adjust text size for smaller screens */
+        font-size: 1rem; 
     }
 
     .contactpage a {
-        font-size: 1rem; /* Resize link for better appearance */
+        font-size: 1rem; 
         padding: 8px 15px;
     }
 }
@@ -79,7 +79,7 @@
 /* Adjust image for smaller screens */
 @media (max-width: 768px) {
     .contact-image {
-        width: 120px; /* Smaller size on mobile */
+        width: 120px;
         height: 120px;
     }
 }

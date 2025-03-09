@@ -1,24 +1,24 @@
 .footer {
-    background-color: #f8f9fa; /* Light grey background */
-    padding: 15px 0; /* Padding to create space around content */
-    text-align: center; /* Center aligns content */
+    background-color: #f8f9fa;
+    padding: 15px 0;
+    text-align: center;
 }
 
 .footer a {
-    display: inline-block; /* Gives a button-like appearance */
-    color: #002366; /* Daytona blue */
+    display: inline-block;
+    color: #002366;
     font-weight: bold;
     font-size: 1.125rem;
     text-decoration: none;
     margin-top: 20px;
-    padding: 10px 20px; /* Padding to create a button feel */
-    border: 2px solid #002366; /* Adds a border for button-like styling */
-    border-radius: 5px; /* Rounded corners for smooth design */
-    transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+    padding: 10px 20px;
+    border: 2px solid #002366;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
 }
 
 .footer a:hover {
-    background-color: #002366; /* Daytona blue fill on hover */
-    color: #ffffff; /* White text for contrast */
+    background-color: #002366;
+    color: #ffffff;
     text-decoration: none;
 }

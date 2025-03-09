@@ -1,8 +1,8 @@
 .home-container {
   font-family: "Arial", sans-serif;
-  color: #1e2a78; /* Daytona blue */
+  color: #1e2a78;
   text-align: center;
-  background: linear-gradient(to left, #5b9bd0, #c0c0c0); /* Steel blue to silver */
+  background: linear-gradient(to left, #5b9bd0, #c0c0c0);
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@
   font-family: "Montserrat", sans-serif;
   font-size: 60px;
   text-shadow: #666 1px 1px 2px;
-  color: #1e2a78; /* Daytona blue */
+  color: #1e2a78;
 }
 
 .home-subtitle {
@@ -54,7 +54,7 @@
   line-height: 1.6;
   margin-bottom: 20px;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
-  color: #1e2a78; /* Daytona blue */
+  color: #1e2a78;
 }
 
 .home-actions {
@@ -62,7 +62,7 @@
 }
 
 .btn-custom {
-  background-color: #1e2a78; /* Daytona blue */
+  background-color: #1e2a78;
   color: white;
   border: none;
   font-size: 1rem;

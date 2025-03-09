@@ -1,6 +1,6 @@
 .sell-car-page {
     font-family: "Arial", sans-serif;
-    color: #1e2a78; /* Daytona blue */
+    color: #1e2a78;
     background: linear-gradient(to left, #5b9bd0, #c0c0c0);
     padding: 50px;
     min-height: 100vh;
@@ -15,12 +15,12 @@
     font-size: 3rem;
     font-weight: bold;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    color: #1e2a78; /* Daytona blue */
+    color: #1e2a78;
 }
   
 .sell-car-subtitle {
     font-size: 1.5rem;
-    color: #ffffff; /* White */
+    color: #ffffff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     font-style: italic;
 }
@@ -52,7 +52,7 @@
 }
   
 .sell-car-form .btn-submit:hover {
-    background-color: #14204e; /* Darker Daytona blue */
+    background-color: #14204e;
 }
 
 .loading-screen {
@@ -64,13 +64,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.8); /* Dimmed background for overlay */
-    z-index: 1000; /* Ensure it appears above other content */
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 1000;
 }
-  
   
 .input-group-text {
     background-color: #1e2a78;
     color: white;
 }
-  

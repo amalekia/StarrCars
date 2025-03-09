@@ -1,8 +1,7 @@
-/* View Car Page Styles */
 .view-car-container {
   font-family: "Arial", sans-serif;
-  color: #1e2a78; /* Daytona blue */
-  background: linear-gradient(to right, #1e2a78, #5b9bd0); /* Vibrant blue gradient */
+  color: #1e2a78;
+  background: linear-gradient(to right, #1e2a78, #5b9bd0);
   padding: 50px;
   min-height: 100vh;
 }
@@ -15,8 +14,8 @@
 .view-car-title {
   font-size: 3rem;
   font-weight: bold;
-  color: #ffffff; /* White for strong contrast */
-  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4); /* More pronounced shadow */
+  color: #ffffff;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4);
 }
 
 .view-car-details {
@@ -27,14 +26,14 @@
 
 .card {
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Slightly deeper shadow */
-  background: #ffffff; /* Ensure a clean background */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: #ffffff;
   padding: 20px;
 }
 
 .vehicle-details-card,
 .contact-card {
-  margin-bottom: 20px; /* Add space between elements */
+  margin-bottom: 20px;
 }
 
 .card-title {
@@ -83,7 +82,6 @@
   box-shadow: 0 0 4px #1e2a78;
 }
 
-/* Carousel Adjustments */
 .image-wheel {
   display: flex;
   justify-content: center;
@@ -92,17 +90,16 @@
 }
 
 .carousel {
-  max-width: 600px; /* Ensures images don’t stretch too wide */
+  max-width: 600px;
   margin: auto;
 }
 
 .carousel img {
   border-radius: 10px;
   max-height: 400px;
-  object-fit: cover; /* Maintain aspect ratio */
+  object-fit: cover;
 }
 
-/* Image Grid for Car Images */
 .image-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -122,7 +119,6 @@
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Loading and Error Messages */
 .loading-message {
   text-align: center;
   font-size: 1.5rem;
@@ -132,10 +128,9 @@
 .error-message {
   text-align: center;
   font-size: 1.5rem;
-  color: #ff0000; /* Red for errors */
+  color: #ff0000;
 }
 
-/* Responsive Styles */
 @media (max-width: 768px) {
   .view-car-title {
     font-size: 2rem;

@@ -27,7 +27,6 @@
     margin-bottom: 20px;
 }
 
-/* 🔹 LOADING SCREEN */
 .loading-screen {
     font-size: 1.5rem;
     color: #1e2a78;
@@ -43,13 +42,11 @@
     margin-top: 10px;
 }
 
-/* 🔹 LOADING SPINNER ANIMATION */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
-/* 🔹 PRICE RANGE BOX (Bigger & More Pronounced) */
 .estimated-price-container {
     background: white;
     padding: 30px;
@@ -97,7 +94,6 @@
     transform: scale(1.05);
 }
 
-/* 🔹 FORM STYLING */
 form {
     max-width: 600px;
     width: 100%;
@@ -109,13 +105,11 @@ form {
     animation: fadeIn 0.5s ease-in-out;
 }
 
-/* 🔹 INPUT FIELDS */
 .MuiTextField-root {
     width: 100% !important;
     margin-bottom: 15px;
 }
 
-/* 🔹 SUBMIT BUTTON */
 .MuiButton-outlined {
     background-color: #1e2a78;
     color: white;

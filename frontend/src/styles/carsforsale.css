@@ -1,6 +1,6 @@
 .cars-for-sale-container {
   font-family: "Arial", sans-serif;
-  color: #1e2a78; /* Daytona blue */
+  color: #1e2a78; 
   background: linear-gradient(to left, #5b9bd0, #c0c0c0);
   padding: 50px;
   min-height: 100vh;
@@ -15,7 +15,7 @@
   font-size: 3rem;
   font-weight: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  color: #1e2a78; /* Daytona blue */
+  color: #1e2a78; 
 }
 
 .cars-subtitle {
@@ -43,7 +43,7 @@
 }
 
 .filter-container .MuiFormControl-root {
-  margin-bottom: 16px; /* Adds space below dropdown */
+  margin-bottom: 16px; 
 }
 
 /* Grid layout for cars */
@@ -72,8 +72,8 @@
 /* Car Image Styling */
 .car-item img {
   width: 100%;
-  height: 180px; /* Adjust height for uniformity */
-  object-fit: cover; /* Ensures consistent sizing */
+  height: 180px; 
+  object-fit: cover; 
   border-radius: 8px;
   transition: transform 0.3s ease-in-out;
 }
@@ -133,7 +133,7 @@
 
 /* View Your Cars Button */
 .view-your-cars-button {
-  background-color: #1e2a78; /* Daytona blue */
+  background-color: #1e2a78; 
   color: white;
   padding: 10px 20px;
   border: none;
@@ -144,7 +144,7 @@
 }
 
 .view-your-cars-button:hover {
-  background-color: #16205a; /* Darker shade of Daytona blue */
+  background-color: #16205a;
   transform: scale(1.05);
 }
 
