@@ -106,7 +106,7 @@ def find_best_k_knn(X_transformed, y_sample):
             best_score = mean_score
             best_k = k
     
-    print(f"Best number of neighbors (k) based on cross-validation: {best_k}")
+    # print(f"Best number of neighbors (k) based on cross-validation: {best_k}")
     return best_k
 
 def find_optimal_k(X_scaled):
@@ -125,27 +125,27 @@ def find_optimal_k(X_scaled):
         distortions.append(kmeans.inertia_)
     
     # Plot the results
-    plt.figure(figsize=(10, 5))
+    # plt.figure(figsize=(10, 5))
 
-    plt.subplot(1, 2, 1)
-    plt.plot(K_range, distortions, marker='o')
-    plt.xlabel('Number of clusters (k)')
-    plt.ylabel('Distortion')
-    plt.title('Elbow Method (Distortion)')
+    # plt.subplot(1, 2, 1)
+    # plt.plot(K_range, distortions, marker='o')
+    # plt.xlabel('Number of clusters (k)')
+    # plt.ylabel('Distortion')
+    # plt.title('Elbow Method (Distortion)')
 
-    plt.subplot(1, 2, 2)
-    plt.plot(K_range, silhouette_scores, marker='o', color='green')
-    plt.xlabel('Number of clusters (k)')
-    plt.ylabel('Silhouette Score')
-    plt.title('Silhouette Score for Optimal k')
+    # plt.subplot(1, 2, 2)
+    # plt.plot(K_range, silhouette_scores, marker='o', color='green')
+    # plt.xlabel('Number of clusters (k)')
+    # plt.ylabel('Silhouette Score')
+    # plt.title('Silhouette Score for Optimal k')
 
-    plt.tight_layout()
-    plt.savefig('kmeans_optimal_k.png')
-    plt.show()
+    # plt.tight_layout()
+    # plt.savefig('kmeans_optimal_k.png')
+    # plt.show()
 
     # Choose the best k based on silhouette score
     optimal_k = K_range[np.argmax(silhouette_scores)]
-    print(f"Optimal number of clusters based on Silhouette Score: {optimal_k}")
+    # print(f"Optimal number of clusters based on Silhouette Score: {optimal_k}")
     return optimal_k
 
 def load_or_train_models(df, sample_size=10000):
@@ -200,7 +200,7 @@ def validate_models(X_transformed, kmeans, df_sample, knn):
         # K-Means clustering validation
         cluster_labels = kmeans.predict(X_transformed)
         silhouette_avg = silhouette_score(X_transformed, cluster_labels)
-        print(f"Silhouette Score for K-Means: {silhouette_avg:.4f}")
+        # print(f"Silhouette Score for K-Means: {silhouette_avg:.4f}")
         
         # Validate KNN pricing predictions
         actual_prices = df_sample['price']
@@ -209,9 +209,9 @@ def validate_models(X_transformed, kmeans, df_sample, knn):
         mse = mean_squared_error(actual_prices, predicted_prices)
         r2 = r2_score(actual_prices, predicted_prices)
         
-        print(f"KNN Price Prediction Validation:")
-        print(f"Mean Squared Error: {mse:.2f}")
-        print(f"R² Score: {r2:.4f}")
+        # print(f"KNN Price Prediction Validation:")
+        # print(f"Mean Squared Error: {mse:.2f}")
+        # print(f"R² Score: {r2:.4f}")
         
     except Exception as e:
         print(f"Error in model validation: {e}", file=sys.stderr)
