@@ -5,10 +5,8 @@ import pandas as pd
 import requests
 import io
 import os
-from scipy.sparse import csr_matrix
 from joblib import dump, load
 from sklearn.cluster import MiniBatchKMeans
-from sklearn.neighbors import NearestNeighbors
 from sklearn.model_selection import cross_val_score
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
